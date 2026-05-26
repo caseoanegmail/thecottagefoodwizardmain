@@ -1,4 +1,4 @@
-a<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -58,6 +58,17 @@ a<!DOCTYPE html>
     user-select: none;
   }
   .nav-logo-icon { font-size: 1.4rem; }
+  .nav-right { margin-left: auto; }
+  .nav-user {
+    display: flex; align-items: center; gap: 6px;
+    color: var(--brown-mid); font-size: 0.875rem; font-weight: 500;
+    cursor: pointer; padding: 6px 14px;
+    border: 1.5px solid var(--border); border-radius: 8px;
+    background: var(--warm-white);
+    transition: border-color 0.15s, background 0.15s;
+    user-select: none;
+  }
+  .nav-user:hover { border-color: var(--amber); background: var(--amber-pale); }
 
   /* ── SCREENS ── */
   .screen { display: none; flex: 1; }
@@ -462,6 +473,154 @@ a<!DOCTYPE html>
   .t-check { color: var(--green); }
   .t-dash  { color: var(--text-light); }
 
+  /* ════════════════════════════
+     SCREEN — LOGIN
+  ════════════════════════════ */
+  .login-wrap {
+    max-width: 420px; margin: 0 auto; padding: 5rem 2rem;
+  }
+  .login-card {
+    background: var(--warm-white);
+    border: 1.5px solid var(--border);
+    border-radius: 20px; padding: 2.5rem;
+    box-shadow: 0 4px 32px rgba(59,42,26,0.08);
+  }
+  .login-card h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; color: var(--brown); margin-bottom: 0.25rem;
+  }
+  .login-card .login-sub {
+    font-size: 0.85rem; color: var(--text-light); margin-bottom: 1.75rem;
+  }
+  .login-field { margin-bottom: 1rem; }
+  .login-field label {
+    display: block; font-size: 0.8rem; font-weight: 500;
+    color: var(--text-mid); margin-bottom: 5px;
+  }
+  .login-field input {
+    width: 100%; background: var(--cream);
+    border: 1px solid var(--border); border-radius: 8px;
+    padding: 10px 14px; font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem; color: var(--text); outline: none;
+    transition: border-color 0.2s;
+  }
+  .login-field input:focus { border-color: var(--amber); background: white; }
+  .login-btn {
+    width: 100%; background: var(--amber); color: white;
+    border: none; border-radius: 10px; padding: 14px;
+    font-family: 'DM Sans', sans-serif; font-size: 1rem;
+    font-weight: 500; cursor: pointer; margin-top: 1.25rem;
+    transition: background 0.2s;
+  }
+  .login-btn:hover { background: #d4832d; }
+
+  /* ════════════════════════════
+     SCREEN — MEMBER HOME
+  ════════════════════════════ */
+  .member-wrap {
+    max-width: 820px; margin: 0 auto; padding: 3rem 2rem 5rem;
+  }
+  .member-greeting {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem; color: var(--brown); margin-bottom: 0.25rem;
+  }
+  .member-greeting em { font-style: normal; color: var(--amber); }
+  .member-sub {
+    font-size: 0.9rem; color: var(--text-mid);
+    font-weight: 300; margin-bottom: 2rem;
+  }
+  .member-tabs {
+    display: flex; gap: 0;
+    border-bottom: 2px solid var(--border);
+    margin-bottom: 2rem;
+  }
+  .mtab {
+    padding: 10px 24px; font-size: 0.9rem; font-weight: 500;
+    color: var(--text-mid); cursor: pointer;
+    border: none; background: none;
+    font-family: 'DM Sans', sans-serif;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px; transition: color 0.15s, border-color 0.15s;
+  }
+  .mtab:hover { color: var(--brown); }
+  .mtab.active { color: var(--amber); border-bottom-color: var(--amber); }
+
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; animation: fadeUp 0.25s ease both; }
+
+  .food-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  .food-card {
+    background: var(--warm-white);
+    border: 1.5px solid var(--border);
+    border-radius: 16px; padding: 1.5rem;
+    cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+  }
+  .food-card:hover {
+    border-color: var(--amber);
+    box-shadow: 0 4px 20px rgba(232,148,58,0.12);
+    transform: translateY(-2px);
+  }
+  .food-card-icon { font-size: 2rem; margin-bottom: 0.75rem; display: block; }
+  .food-card-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem; color: var(--brown); margin-bottom: 0.25rem;
+  }
+  .food-card-cat { font-size: 0.78rem; color: var(--text-light); font-weight: 300; }
+
+  .empty-state {
+    text-align: center; padding: 4rem 2rem;
+    color: var(--text-light);
+  }
+  .empty-state-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+  .empty-state p { font-size: 0.95rem; font-weight: 300; }
+
+  .food-detail-header {
+    display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;
+  }
+  .food-detail-icon { font-size: 2.5rem; }
+  .food-detail-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; color: var(--brown); margin-bottom: 0.2rem;
+  }
+  .food-detail-cat { font-size: 0.85rem; color: var(--text-light); font-weight: 300; }
+
+  .ingredient-list {
+    list-style: none; margin-top: 1rem;
+    display: flex; flex-direction: column; gap: 0.625rem;
+  }
+  .ingredient-item {
+    display: flex; align-items: baseline; gap: 0.75rem;
+    background: var(--warm-white);
+    border: 1.5px solid var(--border);
+    border-radius: 12px; padding: 0.875rem 1.25rem;
+  }
+  .ingredient-name {
+    font-size: 0.9rem; font-weight: 500; color: var(--brown);
+    min-width: 160px;
+  }
+  .ingredient-note {
+    font-size: 0.82rem; color: var(--text-light);
+    font-weight: 300; font-style: italic;
+  }
+
+  .mtab.locked {
+    color: var(--text-light); cursor: pointer;
+    opacity: 0.6;
+  }
+  .mtab.locked:hover { color: var(--text-mid); opacity: 0.8; }
+  .lock-badge {
+    display: inline-block;
+    font-size: 0.68rem; font-weight: 500;
+    background: var(--amber-pale); color: var(--amber);
+    border: 1px solid var(--amber-light);
+    padding: 1px 7px; border-radius: 10px;
+    margin-left: 5px; vertical-align: middle;
+  }
+
   /* ── FOOTER ── */
   footer {
     border-top: 1px solid var(--border);
@@ -488,6 +647,12 @@ a<!DOCTYPE html>
   <div class="nav-logo" onclick="goHome()">
     <span class="nav-logo-icon">🧙</span>
     The Cottage Food Wizard
+  </div>
+  <div class="nav-right">
+    <div class="nav-user" id="nav-user" onclick="goToLogin()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+      <span id="nav-user-label">Log in</span>
+    </div>
   </div>
 </nav>
 
@@ -672,6 +837,129 @@ a<!DOCTYPE html>
 </div><!-- /screen-pricing -->
 
 
+<!-- ════════════════════════════════════
+     SCREEN — LOGIN
+════════════════════════════════════ -->
+<div class="screen" id="screen-login">
+  <div class="login-wrap">
+    <div class="login-card">
+      <h2>Welcome back</h2>
+      <p class="login-sub">Log in to your Cottage Food Wizard account.</p>
+
+      <div class="login-field">
+        <label>Email address</label>
+        <input type="email" value="mary.gonzalez@email.com">
+      </div>
+      <div class="login-field">
+        <label>Password</label>
+        <input type="password" value="password123">
+      </div>
+
+      <button class="login-btn" onclick="doLogin()">Log in →</button>
+    </div>
+  </div>
+</div><!-- /screen-login -->
+
+
+<!-- ════════════════════════════════════
+     SCREEN — MEMBER HOME
+════════════════════════════════════ -->
+<div class="screen" id="screen-member">
+  <div class="member-wrap">
+
+    <h2 class="member-greeting">Good morning, <em>Mary.</em></h2>
+    <p class="member-sub">Here's everything in your account.</p>
+
+    <div class="member-tabs">
+      <button class="mtab active" onclick="switchMemberTab('foods')">My Foods</button>
+      <button class="mtab" onclick="switchMemberTab('license')">My License</button>
+      <button class="mtab" onclick="switchMemberTab('legislation')">Legislation</button>
+    </div>
+
+    <!-- My Foods -->
+    <div class="tab-panel active" id="panel-foods">
+      <div class="food-grid">
+        <div class="food-card" onclick="goToFood('jam')">
+          <span class="food-card-icon">🍓</span>
+          <div class="food-card-name">Mary's Strawberry Jam</div>
+          <div class="food-card-cat">Jams, Jellies &amp; Preserves</div>
+        </div>
+        <div class="food-card" onclick="goToFood('raspberries')">
+          <span class="food-card-icon">🫙</span>
+          <div class="food-card-name">Mary's Preserved Raspberries</div>
+          <div class="food-card-cat">Jams, Jellies &amp; Preserves</div>
+        </div>
+        <div class="food-card" onclick="goToFood('tomatoes')">
+          <span class="food-card-icon">🍅</span>
+          <div class="food-card-name">Mary's Canned Tomatoes</div>
+          <div class="food-card-cat">Acidic, Pickled &amp; Home-canned</div>
+        </div>
+        <div class="food-card" onclick="goToFood('pickle')">
+          <span class="food-card-icon">🥒</span>
+          <div class="food-card-name">Mary's Pickle</div>
+          <div class="food-card-cat">Acidic, Pickled &amp; Home-canned</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- My License -->
+    <div class="tab-panel" id="panel-license">
+      <div class="empty-state">
+        <div class="empty-state-icon">📋</div>
+        <p>No license on file.</p>
+      </div>
+    </div>
+
+    <!-- Legislation -->
+    <div class="tab-panel" id="panel-legislation">
+      <div class="empty-state">
+        <div class="empty-state-icon">⚖️</div>
+        <p>Minnesota cottage food legislation updates will appear here.</p>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /screen-member -->
+
+
+<!-- ════════════════════════════════════
+     SCREEN — FOOD DETAIL
+════════════════════════════════════ -->
+<div class="screen" id="screen-food">
+  <div class="member-wrap">
+
+    <div class="back-link" onclick="showScreen('screen-member')">← Back to My Foods</div>
+
+    <div class="food-detail-header">
+      <span id="food-detail-icon" class="food-detail-icon"></span>
+      <div>
+        <h2 class="food-detail-name" id="food-detail-name"></h2>
+        <div class="food-detail-cat" id="food-detail-cat"></div>
+      </div>
+    </div>
+
+    <div class="member-tabs" style="margin-top: 1.5rem;">
+      <button class="mtab active" onclick="switchFoodTab('ingredients')">Ingredients</button>
+      <button class="mtab locked" onclick="goToPricing()">
+        Labels <span class="lock-badge">⭐ Upgrade</span>
+      </button>
+      <button class="mtab locked" onclick="goToPricing()">
+        Inventory <span class="lock-badge">⭐ Upgrade</span>
+      </button>
+    </div>
+
+    <!-- Ingredients -->
+    <div class="tab-panel active" id="panel-ingredients">
+      <div class="empty-state">
+        <div class="empty-state-icon">🧂</div>
+        <p>No ingredients added yet.<br>This feature is coming soon.</p>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /screen-food -->
+
+
 <footer>
   Copyright The Cottage Food Wizard 2026.
 </footer>
@@ -679,6 +967,63 @@ a<!DOCTYPE html>
 
 <script>
 /* ─── DATA ─── */
+
+/* ─── FOODS ─── */
+const FOODS = [
+  {
+    id: 'jam',
+    name: "Mary's Strawberry Jam",
+    icon: '🍓',
+    cat: 'Jams, Jellies &amp; Preserves',
+    ingredients: [
+      { name: 'Strawberries', note: 'the ones Todd didn\'t eat' },
+      { name: 'Sugar', note: 'a suspicious amount' },
+      { name: 'Lemon juice', note: 'from a lemon Mary argued with' },
+      { name: 'Pectin', note: 'added reluctantly' },
+      { name: 'Existential dread', note: 'trace amounts' },
+    ]
+  },
+  {
+    id: 'raspberries',
+    name: "Mary's Preserved Raspberries",
+    icon: '🫙',
+    cat: 'Jams, Jellies &amp; Preserves',
+    ingredients: [
+      { name: 'Raspberries', note: 'hand-picked at 6am against all better judgment' },
+      { name: 'Sugar', note: 'more than the doctor knows about' },
+      { name: 'Vinegar', note: 'sharp, like Mary\'s Aunt Debra' },
+      { name: 'Water', note: 'filtered through sheer optimism' },
+      { name: 'A hint of regret', note: 'from the 6am part' },
+    ]
+  },
+  {
+    id: 'tomatoes',
+    name: "Mary's Canned Tomatoes",
+    icon: '🍅',
+    cat: 'Acidic, Pickled &amp; Home-canned',
+    ingredients: [
+      { name: 'Roma tomatoes', note: 'they had it coming' },
+      { name: 'Bottled lemon juice', note: 'as required by law and common decency' },
+      { name: 'Salt', note: 'mostly from Mary\'s tears' },
+      { name: 'Citric acid', note: 'for science' },
+      { name: 'One basil leaf', note: 'it was expensive, okay' },
+    ]
+  },
+  {
+    id: 'pickle',
+    name: "Mary's Pickle",
+    icon: '🥒',
+    cat: 'Acidic, Pickled &amp; Home-canned',
+    ingredients: [
+      { name: 'Cucumbers', note: 'nervous ones' },
+      { name: 'White vinegar', note: 'aggressively' },
+      { name: 'Dill', note: 'from the neighbor\'s yard, shhh' },
+      { name: 'Garlic', note: 'too much, obviously' },
+      { name: 'Red pepper flakes', note: 'for drama' },
+      { name: 'Salt', note: 'non-negotiable' },
+    ]
+  },
+];
 
 const CATEGORIES = [
   { id: 'acidic',    icon: '🫙', label: 'Acidic, Pickled & Home-canned' },
@@ -743,6 +1088,7 @@ const PRE_CHECKED = new Set(['training', 'register']);
 
 
 /* ─── STATE ─── */
+let isLoggedIn        = false;
 let userPath          = 'new';
 let selectedCats      = new Set();
 let checkedSteps      = new Set();
@@ -757,7 +1103,57 @@ function showScreen(id) {
 }
 
 function goHome() {
-  showScreen('screen-home');
+  isLoggedIn ? showScreen('screen-member') : showScreen('screen-home');
+}
+
+function goToLogin() {
+  if (isLoggedIn) { showScreen('screen-member'); return; }
+  showScreen('screen-login');
+}
+
+function doLogin() {
+  isLoggedIn = true;
+  document.getElementById('nav-user-label').textContent = 'Mary Gonzalez';
+  showScreen('screen-member');
+}
+
+function switchMemberTab(tab) {
+  document.querySelectorAll('.mtab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelector(`#screen-member .mtab[onclick="switchMemberTab('${tab}')"]`).classList.add('active');
+  document.getElementById('panel-' + tab).classList.add('active');
+}
+
+function goToFood(foodId) {
+  const food = FOODS.find(f => f.id === foodId);
+  document.getElementById('food-detail-name').textContent = food.name;
+  document.getElementById('food-detail-icon').textContent = food.icon;
+  document.getElementById('food-detail-cat').innerHTML = food.cat;
+
+  // Render ingredients
+  const panel = document.getElementById('panel-ingredients');
+  panel.innerHTML = `
+    <ul class="ingredient-list">
+      ${food.ingredients.map(i => `
+        <li class="ingredient-item">
+          <span class="ingredient-name">${i.name}</span>
+          <span class="ingredient-note">${i.note}</span>
+        </li>`).join('')}
+    </ul>`;
+
+  // Reset food tabs
+  document.querySelectorAll('#screen-food .mtab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('#screen-food .tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelector('#screen-food .mtab:first-child').classList.add('active');
+  document.getElementById('panel-ingredients').classList.add('active');
+  showScreen('screen-food');
+}
+
+function switchFoodTab(tab) {
+  document.querySelectorAll('#screen-food .mtab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('#screen-food .tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelector(`#screen-food .mtab[onclick="switchFoodTab('${tab}')"]`).classList.add('active');
+  document.getElementById('panel-' + tab).classList.add('active');
 }
 
 function startPath(path) {
