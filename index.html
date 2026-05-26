@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Cottage Food Wizard — Minnesota</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #FAF6EE;
+    --warm-white: #FFFDF7;
+    --brown: #3B2A1A;
+    --brown-mid: #6B4C2E;
+    --brown-light: #A07850;
+    --amber: #E8943A;
+    --amber-light: #F5C47A;
+    --amber-pale: #FDF0D8;
+    --green: #2E5E3E;
+    --green-light: #4A8A5D;
+    --green-pale: #EAF4ED;
+    --text: #2A1F12;
+    --text-mid: #6B5A44;
+    --text-light: #9C876A;
+    --border: rgba(59, 42, 26, 0.12);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(250, 246, 238, 0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex; align-items: center;
+    height: 60px;
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    color: var(--brown);
+    display: flex; align-items: center; gap: 8px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .nav-logo-icon { font-size: 1.4rem; }
+
+  /* ── SCREENS ── */
+  .screen { display: none; flex: 1; }
+  .screen.active { display: block; animation: fadeUp 0.3s ease both; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── SHARED ── */
+  .back-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    color: var(--text-mid); font-size: 0.85rem;
+    cursor: pointer; margin-bottom: 1.75rem;
+    transition: color 0.15s;
+    user-select: none;
+  }
+  .back-link:hover { color: var(--amber); }
+
+  .screen-eyebrow {
+    font-size: 0.75rem; font-weight: 500;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--amber); margin-bottom: 0.4rem;
+  }
+  .screen-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; color: var(--brown); margin-bottom: 0.4rem;
+  }
+  .screen-sub {
+    font-size: 0.95rem; color: var(--text-mid);
+    font-weight: 300; margin-bottom: 2rem;
+  }
+
+  .primary-btn {
+    background: var(--amber); color: white;
+    border: none; border-radius: 12px;
+    padding: 15px 24px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem; font-weight: 500;
+    cursor: pointer; width: 100%;
+    transition: background 0.2s;
+    letter-spacing: 0.01em;
+  }
+  .primary-btn:hover { background: #d4832d; }
+  .primary-btn:disabled { background: var(--text-light); cursor: not-allowed; }
+
+  /* ════════════════════════════
+     SCREEN 1 — HOME
+  ════════════════════════════ */
+  .home-hero {
+    max-width: 820px; margin: 0 auto;
+    padding: 5rem 2rem 3rem; text-align: center;
+  }
+  .home-eyebrow {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--green-pale); color: var(--green);
+    border: 1px solid rgba(46, 94, 62, 0.2);
+    font-size: 0.75rem; font-weight: 500;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    padding: 4px 14px; border-radius: 20px; margin-bottom: 1.5rem;
+  }
+  .eyebrow-dot { width: 6px; height: 6px; background: var(--green-light); border-radius: 50%; }
+
+  .home-hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem; line-height: 1.15;
+    color: var(--brown); margin-bottom: 1.25rem;
+  }
+  .home-hero h1 em { font-style: normal; color: var(--amber); }
+
+  .home-hero > p {
+    font-size: 1.08rem; color: var(--text-mid);
+    max-width: 580px; margin: 0 auto 3rem;
+    font-weight: 300; line-height: 1.75;
+  }
+
+  .option-cards-wrap {
+    max-width: 820px; margin: 0 auto;
+    padding: 0 2rem 5rem;
+  }
+  .option-cards {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+  .option-card {
+    background: var(--warm-white);
+    border: 2px solid var(--border);
+    border-radius: 20px; padding: 2.25rem 1.75rem;
+    cursor: pointer; text-align: left;
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+  }
+  .option-card:hover {
+    border-color: var(--amber);
+    box-shadow: 0 8px 32px rgba(232, 148, 58, 0.14);
+    transform: translateY(-3px);
+  }
+  .option-icon { font-size: 2.4rem; display: block; margin-bottom: 1rem; }
+  .option-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem; color: var(--brown); margin-bottom: 0.5rem;
+  }
+  .option-card p {
+    font-size: 0.875rem; color: var(--text-mid);
+    line-height: 1.65; font-weight: 300; margin-bottom: 1.25rem;
+  }
+  .option-arrow {
+    color: var(--amber); font-size: 0.875rem; font-weight: 500;
+  }
+
+  /* How it works */
+  .how-section {
+    max-width: 820px; margin: 0 auto;
+    padding: 1.5rem 2rem 5rem;
+  }
+  .how-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; color: var(--brown);
+    text-align: center; margin-bottom: 2rem;
+  }
+  .how-steps {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 0; position: relative;
+  }
+  .how-step { text-align: center; padding: 0 0.75rem; position: relative; }
+  .how-step:not(:last-child)::after {
+    content: '';
+    position: absolute; top: 17px; right: -8%;
+    width: 16%; height: 2px;
+    background: var(--amber-light);
+  }
+  .how-num {
+    width: 34px; height: 34px;
+    background: var(--amber-pale);
+    border: 2px solid var(--amber-light);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.82rem; font-weight: 500;
+    color: var(--brown-mid); margin: 0 auto 0.65rem;
+  }
+  .how-step-title { font-size: 0.82rem; font-weight: 500; color: var(--brown); }
+  .how-step-desc  { font-size: 0.75rem; color: var(--text-light); font-weight: 300; margin-top: 2px; }
+
+
+  /* ════════════════════════════
+     SCREEN 2 — CATEGORIES
+  ════════════════════════════ */
+  .categories-wrap {
+    max-width: 700px; margin: 0 auto; padding: 3.5rem 2rem 5rem;
+  }
+  .category-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 10px; margin-bottom: 1.75rem;
+  }
+  .cat-item {
+    display: flex; align-items: center; gap: 12px;
+    background: var(--warm-white);
+    border: 1.5px solid var(--border);
+    border-radius: 12px; padding: 13px 15px;
+    cursor: pointer; user-select: none;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .cat-item:hover { border-color: var(--amber-light); background: var(--amber-pale); }
+  .cat-item.selected { border-color: var(--amber); background: var(--amber-pale); }
+
+  .cat-box {
+    width: 20px; height: 20px; min-width: 20px;
+    border: 2px solid var(--border); border-radius: 5px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; transition: all 0.15s;
+  }
+  .cat-item.selected .cat-box {
+    background: var(--amber); border-color: var(--amber); color: white;
+  }
+  .cat-icon  { font-size: 1.2rem; }
+  .cat-label { font-size: 0.855rem; color: var(--text); line-height: 1.35; }
+
+
+  /* ════════════════════════════
+     SCREEN 3 — CHECKLIST
+  ════════════════════════════ */
+  .checklist-wrap {
+    max-width: 660px; margin: 0 auto; padding: 3.5rem 2rem 6rem;
+  }
+
+  /* Progress */
+  .progress-section { margin-bottom: 2.5rem; }
+  .progress-header {
+    display: flex; justify-content: space-between;
+    align-items: baseline; margin-bottom: 8px;
+  }
+  .progress-label { font-size: 0.8rem; font-weight: 500; color: var(--text-mid); }
+  .progress-count { font-size: 0.8rem; color: var(--text-light); }
+  .progress-track {
+    height: 6px; background: var(--border);
+    border-radius: 3px; overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%; background: var(--amber);
+    border-radius: 3px; transition: width 0.4s ease;
+    width: 0%;
+  }
+
+  /* Step cards */
+  .step-card {
+    background: var(--warm-white);
+    border: 1.5px solid var(--border);
+    border-radius: 16px; padding: 1.5rem;
+    margin-bottom: 0.875rem;
+    display: flex; gap: 1.1rem; align-items: flex-start;
+    transition: border-color 0.2s, opacity 0.25s;
+  }
+  .step-card.is-done {
+    opacity: 0.55; background: var(--cream);
+  }
+  .step-card.is-done .step-title {
+    text-decoration: line-through; color: var(--text-light);
+  }
+  .step-card.is-active {
+    border-color: var(--amber);
+    box-shadow: 0 4px 20px rgba(232, 148, 58, 0.1);
+  }
+
+  .check-btn {
+    width: 28px; height: 28px; min-width: 28px;
+    border: 2px solid var(--border); border-radius: 50%;
+    background: white; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; margin-top: 3px;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .check-btn:hover { border-color: var(--amber); }
+  .check-btn.checked {
+    background: var(--green); border-color: var(--green); color: white;
+  }
+  .check-btn.pre-checked {
+    background: var(--green); border-color: var(--green);
+    color: white; cursor: default;
+  }
+
+  .step-body { flex: 1; min-width: 0; }
+  .step-source {
+    font-size: 0.7rem; font-weight: 500;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .step-source.ext { color: var(--brown-light); }
+  .step-source.int { color: var(--green-light); }
+
+  .step-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem; color: var(--brown); margin-bottom: 0.35rem;
+  }
+  .step-desc {
+    font-size: 0.85rem; color: var(--text-mid);
+    line-height: 1.65; font-weight: 300; margin-bottom: 1rem;
+  }
+
+  .action-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 8px 16px; border-radius: 8px;
+    font-size: 0.84rem; font-weight: 500;
+    cursor: pointer; text-decoration: none;
+    border: none; font-family: 'DM Sans', sans-serif;
+    transition: background 0.2s;
+  }
+  .action-btn.ext {
+    background: var(--amber-pale); color: var(--brown-mid);
+    border: 1px solid var(--amber-light);
+  }
+  .action-btn.ext:hover { background: #f7d9a0; }
+  .action-btn.soon {
+    background: var(--amber-pale); color: var(--amber);
+    border: 1px solid var(--amber-light); cursor: pointer;
+    font-weight: 500;
+  }
+  .action-btn.soon:hover { background: #f7d9a0; }
+
+  /* Completion */
+  .done-banner {
+    background: var(--green); border-radius: 16px;
+    padding: 2.25rem 2rem; text-align: center; color: white;
+    margin-top: 2rem; display: none;
+  }
+  .done-banner.visible { display: block; animation: fadeUp 0.35s ease both; }
+  .done-banner .done-emoji { font-size: 2.75rem; margin-bottom: 0.75rem; }
+  .done-banner h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem; margin-bottom: 0.5rem;
+  }
+  .done-banner p { font-size: 0.9rem; opacity: 0.85; }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 1.25rem 2rem; text-align: center;
+    font-size: 0.78rem; color: var(--text-light);
+    margin-top: auto;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 640px) {
+    .option-cards     { grid-template-columns: 1fr; }
+    .category-grid    { grid-template-columns: 1fr; }
+    .home-hero h1     { font-size: 2.25rem; }
+    .how-steps        { grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+    .how-step::after  { display: none; }
+    .screen-title     { font-size: 1.65rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <div class="nav-logo" onclick="goHome()">
+    <span class="nav-logo-icon">🧙</span>
+    The Cottage Food Wizard
+  </div>
+</nav>
+
+
+<!-- ════════════════════════════════════
+     SCREEN 1 — HOME
+════════════════════════════════════ -->
+<div class="screen active" id="screen-home">
+
+  <div class="home-hero">
+    <div class="home-eyebrow">
+      <span class="eyebrow-dot"></span>
+      Minnesota Cottage Food
+    </div>
+    <h1>Your <em>one-stop shop</em> for selling homemade food in Minnesota</h1>
+    <p>We handle every step, from registration to your first sale.</p>
+  </div>
+
+  <div class="how-section">
+    <h2 class="how-title">How it works</h2>
+    <div class="how-steps">
+      <div class="how-step">
+        <div class="how-num">1</div>
+        <div class="how-step-title">Tell us about you</div>
+        <div class="how-step-desc">New or existing producer?</div>
+      </div>
+      <div class="how-step">
+        <div class="how-num">2</div>
+        <div class="how-step-title">Pick your foods</div>
+        <div class="how-step-desc">What are you planning to sell?</div>
+      </div>
+      <div class="how-step">
+        <div class="how-num">3</div>
+        <div class="how-step-title">Follow your checklist</div>
+        <div class="how-step-desc">We get you through each step</div>
+      </div>
+      <div class="how-step">
+        <div class="how-num">4</div>
+        <div class="how-step-title">Start selling</div>
+        <div class="how-step-desc">Labels, website, and more</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option-cards-wrap">
+    <div class="option-cards">
+      <div class="option-card" onclick="startPath('new')">
+        <span class="option-icon">🌱</span>
+        <h3>I'm new to cottage food</h3>
+        <p>Never sold homemade food before? We'll walk you through every step — registration, training, labeling, and beyond.</p>
+        <div class="option-arrow">Get started →</div>
+      </div>
+      <div class="option-card" onclick="startPath('existing')">
+        <span class="option-icon">🏡</span>
+        <h3>I already have a business</h3>
+        <p>Already registered and selling? We'll help you grow — get your website and labels ready to reach more customers.</p>
+        <div class="option-arrow">Continue growing →</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /screen-home --><!-- ════════════════════════════════════
+     SCREEN 2 — CATEGORY SELECTION
+════════════════════════════════════ -->
+<div class="screen" id="screen-categories">
+  <div class="categories-wrap">
+
+    <div class="back-link" onclick="goHome()">← Back</div>
+
+    <div class="screen-eyebrow">Step 1 of 2</div>
+    <h2 class="screen-title">What are you planning to sell?</h2>
+    <p class="screen-sub">Select all the categories that apply. You can always change this later.</p>
+
+    <div class="category-grid" id="category-grid">
+      <!-- rendered by JS -->
+    </div>
+
+    <button class="primary-btn" id="continue-btn" onclick="goToChecklist()" disabled>
+      Continue to your checklist →
+    </button>
+
+  </div>
+</div><!-- /screen-categories -->
+
+
+<!-- ════════════════════════════════════
+     SCREEN 3 — CHECKLIST
+════════════════════════════════════ -->
+<div class="screen" id="screen-checklist">
+  <div class="checklist-wrap">
+
+    <div class="back-link" onclick="goToCategories()">← Back</div>
+
+    <div class="screen-eyebrow">Step 2 of 2</div>
+    <h2 class="screen-title" id="cl-title">Let's get you set up</h2>
+    <p class="screen-sub" id="cl-sub">Work through each step below at your own pace. Check items off as you complete them.</p>
+
+    <div class="progress-section">
+      <div class="progress-header">
+        <span class="progress-label">Your progress</span>
+        <span class="progress-count" id="prog-count">0 of 5 complete</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="prog-fill"></div>
+      </div>
+    </div>
+
+    <div id="steps-container">
+      <!-- rendered by JS -->
+    </div>
+
+    <div class="done-banner" id="done-banner">
+      <div class="done-emoji">🎉</div>
+      <h3>You're all set!</h3>
+      <p>Every step is complete. Welcome to the Minnesota cottage food community — now go sell something delicious.</p>
+    </div>
+
+  </div>
+</div><!-- /screen-checklist -->
+
+
+<footer>
+  Copyright The Cottage Food Wizard 2026.
+</footer>
+
+
+<script>
+/* ─── DATA ─── */
+
+const CATEGORIES = [
+  { id: 'acidic',    icon: '🫙', label: 'Acidic, Pickled & Home-canned' },
+  { id: 'baked',     icon: '🍞', label: 'Baked Foods' },
+  { id: 'beverages', icon: '🧃', label: 'Beverages' },
+  { id: 'candy',     icon: '🍬', label: 'Candy & Confections' },
+  { id: 'dried',     icon: '🌾', label: 'Dried, Dehydrated & Roasted' },
+  { id: 'freeze',    icon: '❄️',  label: 'Freeze-Dried Foods' },
+  { id: 'frozen',    icon: '🧊', label: 'Frozen Foods' },
+  { id: 'icings',    icon: '🎂', label: 'Icings, Fillings & Frostings' },
+  { id: 'jams',      icon: '🍓', label: 'Jams, Jellies & Preserves' },
+  { id: 'hemp',      icon: '🌿', label: 'Hemp Foods' },
+];
+
+const STEPS = [
+  {
+    id:       'register',
+    title:    'Register with the MDA',
+    source:   'External — Minnesota Dept. of Agriculture',
+    srcType:  'ext',
+    desc:     'Create your official cottage food producer registration with the Minnesota Department of Agriculture. This is the required first step before you can legally sell.',
+    btnLabel: 'Go to MDA registration →',
+    btnType:  'ext',
+    url:      'https://www.mda.state.mn.us/food-feed/cottage-food-producer-registration',
+  },
+  {
+    id:       'training',
+    title:    'Complete Required Training',
+    source:   'External — MN Farmers\' Market Association',
+    srcType:  'ext',
+    desc:     'Minnesota requires all cottage food producers to complete an approved food safety training course. The Cottage Foods Academy is your go-to resource.',
+    btnLabel: 'Go to Cottage Foods Academy →',
+    btnType:  'ext',
+    url:      'https://mfma.org/Cottage_Foods_Academy',
+  },
+  {
+    id:       'fee',
+    title:    'Pay Your Registration Fee',
+    source:   'External — Minnesota Dept. of Agriculture',
+    srcType:  'ext',
+    desc:     'Pay the annual registration fee through the MDA portal to finalize your registration and receive your official producer number.',
+    btnLabel: 'Pay registration fee →',
+    btnType:  'ext',
+    url:      'https://www.mda.state.mn.us/food-feed/cottage-food-producer-registration',
+  },
+  {
+    id:       'website',
+    title:    'Create Your Website',
+    source:   'Premium feature — The Cottage Food Wizard',
+    srcType:  'int',
+    desc:     'Set up an online presence so customers can find you and place orders. We\'re building templates designed specifically for cottage food producers — no tech skills needed.',
+    btnLabel: '⭐ Upgrade to unlock',
+    btnType:  'soon',
+    url:      null,
+  },
+  {
+    id:       'labels',
+    title:    'Print Your Labels',
+    source:   'Premium feature — The Cottage Food Wizard',
+    srcType:  'int',
+    desc:     'All Minnesota cottage food products must carry legally compliant labels. We\'ll generate ready-to-print labels based on your products and producer registration.',
+    btnLabel: '⭐ Upgrade to unlock',
+    btnType:  'soon',
+    url:      null,
+  },
+];
+
+// Steps pre-checked for existing sellers
+const PRE_CHECKED = new Set(['register', 'training', 'fee']);
+
+
+/* ─── STATE ─── */
+let userPath          = 'new';
+let selectedCats      = new Set();
+let checkedSteps      = new Set();
+
+
+/* ─── NAVIGATION ─── */
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  const el = document.getElementById(id);
+  el.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function goHome() {
+  showScreen('screen-home');
+}
+
+function startPath(path) {
+  userPath = path;
+  selectedCats.clear();
+  renderCategories();
+  showScreen('screen-categories');
+}
+
+function goToCategories() {
+  showScreen('screen-categories');
+}
+
+function goToChecklist() {
+  renderChecklist();
+  showScreen('screen-checklist');
+}
+
+
+/* ─── CATEGORIES ─── */
+function renderCategories() {
+  const grid = document.getElementById('category-grid');
+  grid.innerHTML = '';
+
+  CATEGORIES.forEach(cat => {
+    const sel = selectedCats.has(cat.id);
+    const el = document.createElement('div');
+    el.className = 'cat-item' + (sel ? ' selected' : '');
+    el.dataset.id = cat.id;
+    el.innerHTML = `
+      <div class="cat-box">${sel ? '✓' : ''}</div>
+      <span class="cat-icon">${cat.icon}</span>
+      <span class="cat-label">${cat.label}</span>
+    `;
+    el.addEventListener('click', () => toggleCat(cat.id, el));
+    grid.appendChild(el);
+  });
+
+  syncContinueBtn();
+}
+
+function toggleCat(id, el) {
+  if (selectedCats.has(id)) {
+    selectedCats.delete(id);
+    el.classList.remove('selected');
+    el.querySelector('.cat-box').textContent = '';
+  } else {
+    selectedCats.add(id);
+    el.classList.add('selected');
+    el.querySelector('.cat-box').textContent = '✓';
+  }
+  syncContinueBtn();
+}
+
+function syncContinueBtn() {
+  document.getElementById('continue-btn').disabled = selectedCats.size === 0;
+}
+
+
+/* ─── CHECKLIST ─── */
+function renderChecklist() {
+  const isExisting = userPath === 'existing';
+  checkedSteps = new Set();
+
+  // Header copy
+  if (isExisting) {
+    document.getElementById('cl-title').textContent = 'Pick up where you left off';
+    document.getElementById('cl-sub').textContent   =
+      'Your registration steps are already done. Let\'s focus on growing your business.';
+  } else {
+    document.getElementById('cl-title').textContent = 'Let\'s get you set up';
+    document.getElementById('cl-sub').textContent   =
+      'Work through each step below at your own pace. Check items off as you complete them.';
+  }
+
+  // Seed pre-checked for existing sellers
+  if (isExisting) PRE_CHECKED.forEach(id => checkedSteps.add(id));
+
+  const container = document.getElementById('steps-container');
+  container.innerHTML = '';
+
+  STEPS.forEach(step => {
+    const isPreChecked = isExisting && PRE_CHECKED.has(step.id);
+    const isDone       = checkedSteps.has(step.id);
+    const isActive     = !isDone && isFirstUnchecked(step.id);
+
+    const card = document.createElement('div');
+    card.id        = 'card-' + step.id;
+    card.className = 'step-card'
+      + (isDone   ? ' is-done'   : '')
+      + (isActive ? ' is-active' : '');
+
+    // Check button
+    let checkClass = 'check-btn';
+    if (isPreChecked) checkClass += ' pre-checked';
+    else if (isDone)  checkClass += ' checked';
+
+    // Action button
+    let actionHTML = '';
+    if (step.btnType === 'ext') {
+      actionHTML = `<a href="${step.url}" target="_blank" rel="noopener" class="action-btn ext">${step.btnLabel}</a>`;
+    } else {
+      actionHTML = `<button class="action-btn soon">${step.btnLabel}</button>`;
+    }
+
+    card.innerHTML = `
+      <button
+        class="${checkClass}"
+        id="chk-${step.id}"
+        ${isPreChecked ? 'disabled title="Already completed"' : 'title="Mark as complete"'}
+        onclick="${isPreChecked ? '' : `toggleStep('${step.id}')`}"
+      >${isDone ? '✓' : ''}</button>
+      <div class="step-body">
+        <div class="step-source ${step.srcType}">${step.source}</div>
+        <div class="step-title">${step.title}</div>
+        <div class="step-desc">${step.desc}</div>
+        ${actionHTML}
+      </div>
+    `;
+
+    container.appendChild(card);
+  });
+
+  updateProgress();
+}
+
+function isFirstUnchecked(stepId) {
+  for (const step of STEPS) {
+    if (!checkedSteps.has(step.id)) return step.id === stepId;
+  }
+  return false;
+}
+
+function toggleStep(stepId) {
+  const card = document.getElementById('card-' + stepId);
+  const btn  = document.getElementById('chk-' + stepId);
+
+  if (checkedSteps.has(stepId)) {
+    checkedSteps.delete(stepId);
+    card.classList.remove('is-done');
+    btn.classList.remove('checked');
+    btn.textContent = '';
+  } else {
+    checkedSteps.add(stepId);
+    card.classList.add('is-done');
+    card.classList.remove('is-active');
+    btn.classList.add('checked');
+    btn.textContent = '✓';
+  }
+
+  // Refresh active highlight on all cards
+  STEPS.forEach(step => {
+    const c = document.getElementById('card-' + step.id);
+    if (!c) return;
+    const done = checkedSteps.has(step.id);
+    if (!done && isFirstUnchecked(step.id)) {
+      c.classList.add('is-active');
+    } else {
+      c.classList.remove('is-active');
+    }
+  });
+
+  updateProgress();
+}
+
+function updateProgress() {
+  const total = STEPS.length;
+  const done  = checkedSteps.size;
+  const pct   = Math.round((done / total) * 100);
+
+  document.getElementById('prog-fill').style.width  = pct + '%';
+  document.getElementById('prog-count').textContent = `${done} of ${total} complete`;
+
+  const banner = document.getElementById('done-banner');
+  done === total ? banner.classList.add('visible') : banner.classList.remove('visible');
+}
+
+
+/* ─── INIT ─── */
+renderCategories();
+</script>
+
+</body>
+</html>
