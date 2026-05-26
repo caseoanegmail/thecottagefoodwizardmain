@@ -674,6 +674,154 @@
   }
 
   /* ════════════════════════════
+     SCREEN — WEBSITE BUILDER (SPLIT)
+  ════════════════════════════ */
+  #screen-website-builder {
+    height: calc(100vh - 60px);
+    overflow: hidden;
+  }
+  .builder-split {
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    height: 100%;
+  }
+  .builder-left {
+    overflow-y: auto;
+    padding: 1.75rem;
+    border-right: 1px solid var(--border);
+    background: var(--cream);
+  }
+  .builder-right {
+    overflow-y: auto;
+    background: #e8eaed;
+    display: flex; flex-direction: column;
+  }
+
+  .builder-preview-chrome {
+    background: #f1f3f4;
+    border-bottom: 1px solid #dadce0;
+    padding: 10px 16px;
+    display: flex; align-items: center; gap: 12px;
+    flex-shrink: 0;
+  }
+  .builder-preview-dots {
+    display: flex; gap: 5px;
+  }
+  .builder-preview-dots span {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: #dadce0;
+  }
+  .builder-preview-dots span:nth-child(1) { background: #ff5f57; }
+  .builder-preview-dots span:nth-child(2) { background: #febc2e; }
+  .builder-preview-dots span:nth-child(3) { background: #28c840; }
+  .builder-preview-url {
+    flex: 1; background: white; border: 1px solid #dadce0;
+    border-radius: 20px; padding: 5px 14px;
+    font-size: 0.78rem; color: #3c4043;
+    display: flex; align-items: center; gap: 6px;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  /* Builder right panel — mary site scaled */
+  .builder-right .mary-site {
+    flex: 1; transform-origin: top left;
+    min-height: 100%;
+  }
+  .builder-right .mary-header {
+    top: 0; /* not sticky inside scroll container */
+    position: relative;
+  }
+
+  /* Placeholder shimmer */
+  .prev-placeholder {
+    display: inline-block;
+    background: rgba(0,0,0,0.08);
+    border-radius: 4px;
+    animation: shimmer 1.5s infinite;
+  }
+  .mary-hero .prev-placeholder { background: rgba(255,255,255,0.2); }
+  @keyframes shimmer {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+  }
+
+  .prev-photo-placeholder {
+    width: 100%; height: 280px;
+    background: #e8e8e8; border-radius: 12px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    color: #aaa; font-size: 0.85rem; text-align: center;
+    border: 2px dashed #ccc;
+  }
+  .prev-photo-placeholder span { font-size: 2rem; margin-bottom: 0.5rem; }
+  .prev-venue-placeholder {
+    color: #aaa; font-size: 0.85rem; font-style: italic;
+    padding: 1rem; text-align: center; width: 100%;
+  }
+
+  /* Photo upload */
+  .builder-photos { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .builder-photo-upload { cursor: pointer; }
+  .photo-upload-label { cursor: pointer; display: block; }
+  .photo-upload-inner {
+    height: 130px; border: 2px dashed var(--border);
+    border-radius: 10px; background: var(--warm-white);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 6px; transition: border-color 0.15s, background 0.15s;
+    text-align: center;
+  }
+  .photo-upload-inner:hover { border-color: var(--amber); background: var(--amber-pale); }
+  .photo-upload-icon { font-size: 1.5rem; }
+  .photo-upload-text { font-size: 0.75rem; color: var(--text-light); line-height: 1.4; }
+  .photo-upload-inner.has-photo {
+    border-style: solid; border-color: var(--green);
+    background-size: cover; background-position: center;
+  }
+
+  .builder-section { margin-bottom: 1.5rem; }
+  .builder-field { margin-bottom: 0.875rem; }
+  .builder-field label {
+    display: block; font-size: 0.78rem; font-weight: 500;
+    color: var(--text-mid); margin-bottom: 4px;
+  }
+  .builder-field input,
+  .builder-field textarea {
+    width: 100%; background: var(--warm-white);
+    border: 1px solid var(--border); border-radius: 8px;
+    padding: 9px 12px; font-family: 'DM Sans', sans-serif;
+    font-size: 0.875rem; color: var(--text); outline: none;
+    transition: border-color 0.2s; resize: vertical;
+  }
+  .builder-field input:focus,
+  .builder-field textarea:focus { border-color: var(--amber); background: white; }
+  .builder-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+
+  .builder-venues {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 6px;
+  }
+  .venue-check {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 0.82rem; color: var(--text-mid);
+    background: var(--warm-white); border: 1.5px solid var(--border);
+    border-radius: 8px; padding: 8px 12px; cursor: pointer;
+  }
+  .venue-check input { accent-color: var(--amber); }
+
+  /* Publish success */
+  .publish-success {
+    position: fixed; bottom: 2rem; left: 50%;
+    transform: translateX(-50%);
+    background: var(--green); color: white;
+    padding: 12px 24px; border-radius: 12px;
+    font-size: 0.9rem; font-weight: 500;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    display: none; z-index: 999;
+    animation: fadeUp 0.3s ease both;
+  }
+  .publish-success.visible { display: block; }
+
+  /* ════════════════════════════
      SCREENS — PROFILE & BILLING
   ════════════════════════════ */
   .profile-section {
@@ -727,6 +875,236 @@
   }
   .billing-empty span { font-size: 1.75rem; display: block; margin-bottom: 0.5rem; }
   .billing-empty p { font-weight: 300; line-height: 1.6; }
+
+  /* ════════════════════════════
+     SCREEN — WEBSITE BUILDER
+  ════════════════════════════ */
+  .builder-form { display: flex; flex-direction: column; gap: 0; }
+  .builder-section { margin-bottom: 2rem; }
+  .builder-field { margin-bottom: 1rem; }
+  .builder-field label {
+    display: block; font-size: 0.8rem; font-weight: 500;
+    color: var(--text-mid); margin-bottom: 5px;
+  }
+  .builder-field input,
+  .builder-field textarea {
+    width: 100%; background: var(--cream);
+    border: 1px solid var(--border); border-radius: 8px;
+    padding: 10px 14px; font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem; color: var(--text); outline: none;
+    transition: border-color 0.2s; resize: vertical;
+  }
+  .builder-field input:focus,
+  .builder-field textarea:focus { border-color: var(--amber); background: white; }
+  .builder-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+  .builder-photos { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .builder-photo img {
+    width: 100%; height: 160px; object-fit: cover;
+    border-radius: 10px; border: 1.5px solid var(--border);
+    display: block; margin-bottom: 6px;
+  }
+  .builder-photo-label {
+    font-size: 0.8rem; color: var(--text-mid); font-weight: 500;
+  }
+  .builder-photo-label a { color: var(--amber); text-decoration: none; }
+
+  .website-tab-preview {
+    background: var(--warm-white); border: 1.5px solid var(--border);
+    border-radius: 16px; padding: 1.75rem;
+    display: flex; align-items: center;
+    justify-content: space-between; gap: 1.5rem;
+    margin-top: 1rem;
+  }
+  .website-tab-url {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 0.82rem; color: var(--green);
+    background: var(--green-pale); border: 1px solid rgba(46,94,62,0.2);
+    padding: 4px 12px; border-radius: 20px; margin-bottom: 0.75rem;
+  }
+  .website-tab-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem; color: var(--brown); margin-bottom: 0.25rem;
+  }
+  .website-tab-desc { font-size: 0.85rem; color: var(--text-light); font-weight: 300; }
+  .website-tab-actions { display: flex; flex-direction: column; min-width: 140px; }
+
+  .color-swatches {
+    display: flex; gap: 10px; flex-wrap: wrap;
+  }
+  .color-swatch {
+    width: 36px; height: 36px; border-radius: 50%;
+    cursor: pointer; border: 3px solid transparent;
+    transition: transform 0.15s, border-color 0.15s;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  }
+  .color-swatch:hover { transform: scale(1.15); }
+  .color-swatch.selected {
+    border-color: var(--brown);
+    transform: scale(1.15);
+    box-shadow: 0 0 0 2px white, 0 0 0 4px var(--brown);
+  }
+
+  .builder-venues {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+  }
+  .venue-check {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 0.875rem; color: var(--text-mid);
+    background: var(--warm-white); border: 1.5px solid var(--border);
+    border-radius: 8px; padding: 10px 14px; cursor: pointer;
+  }
+  .venue-check input { accent-color: var(--amber); }
+
+  /* ════════════════════════════
+     SCREEN — WEBSITE PREVIEW
+  ════════════════════════════ */
+  .preview-outer { display: flex; flex-direction: column; height: 100%; }
+
+  .preview-topbar {
+    position: sticky; top: 60px; z-index: 90;
+    background: #f1f3f4; border-bottom: 1px solid #dadce0;
+    padding: 10px 1.5rem;
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  }
+  .preview-url-bar {
+    display: flex; align-items: center; gap: 8px;
+    background: white; border: 1px solid #dadce0;
+    border-radius: 20px; padding: 6px 18px;
+    font-size: 0.82rem; color: #3c4043;
+    font-family: 'DM Sans', sans-serif;
+    flex: 1; max-width: 440px; margin: 0 auto;
+  }
+
+  /* Mary's website styles — intentionally different from CFW */
+  .mary-site {
+    font-family: 'DM Sans', sans-serif;
+    background: #fff; color: #1a1a1a;
+    --mary-brand: #2d5a27;
+    --mary-brand-pale: #f0f7ee;
+    --mary-brand-border: #c8e0c4;
+  }
+  .mary-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 3rem; border-bottom: 1px solid #eee;
+    background: white; position: sticky; top: 108px; z-index: 80;
+  }
+  .mary-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem; color: var(--mary-brand); font-weight: 700;
+  }
+  .mary-nav { display: flex; gap: 2rem; }
+  .mary-nav a {
+    text-decoration: none; color: #555;
+    font-size: 0.875rem; transition: color 0.15s;
+  }
+  .mary-nav a:hover { color: var(--mary-brand); }
+
+  .mary-hero {
+    background-size: cover; background-position: center;
+    padding: 6rem 3rem; text-align: center; color: white;
+  }
+  .mary-hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.75rem; line-height: 1.2;
+    margin-bottom: 1rem; font-weight: 700;
+  }
+  .mary-hero p {
+    font-size: 1.05rem; opacity: 0.88;
+    margin-bottom: 2rem; font-weight: 300;
+  }
+  .mary-cta {
+    display: inline-block;
+    background: var(--mary-brand); color: white;
+    padding: 12px 28px; border-radius: 8px;
+    text-decoration: none; font-weight: 500; font-size: 0.95rem;
+    transition: filter 0.2s;
+  }
+  .mary-cta:hover { filter: brightness(0.85); }
+
+  .mary-section { padding: 4rem 3rem; background: #fafaf8; }
+  .mary-section-inner {
+    max-width: 900px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 3rem; align-items: center;
+  }
+  .mary-eyebrow {
+    font-size: 0.72rem; font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--mary-brand); margin-bottom: 0.5rem;
+  }
+  .mary-section-text h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem; color: #1a1a1a;
+    margin-bottom: 1rem; line-height: 1.25;
+  }
+  .mary-section-text p {
+    font-size: 0.9rem; color: #555;
+    line-height: 1.75; margin-bottom: 0.75rem; font-weight: 300;
+  }
+  .mary-section-photo img {
+    width: 100%; border-radius: 12px;
+    object-fit: cover; height: 280px;
+  }
+
+  .mary-venues { padding: 4rem 3rem; background: white; }
+  .mary-venues-inner { max-width: 900px; margin: 0 auto; }
+  .mary-venues-inner h2 {
+    font-family: 'Playfair Display', serif; font-size: 1.6rem; color: #1a1a1a;
+  }
+  .mary-venue-cards {
+    display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+  }
+  .mary-venue-card {
+    background: var(--mary-brand-pale); border: 1.5px solid var(--mary-brand-border);
+    border-radius: 12px; padding: 1rem 2rem;
+    font-size: 0.95rem; color: var(--mary-brand); font-weight: 500;
+  }
+
+  .mary-contact {
+    background: var(--mary-brand); padding: 4rem 3rem; text-align: center; color: white;
+  }
+  .mary-contact .mary-eyebrow { color: rgba(255,255,255,0.7); }
+  .mary-contact h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem; margin-bottom: 1.5rem;
+  }
+  .mary-contact-details {
+    display: flex; gap: 2rem; justify-content: center;
+    flex-wrap: wrap; font-size: 0.95rem; opacity: 0.9;
+  }
+  .mary-footer {
+    background: #1a1a1a; color: rgba(255,255,255,0.5);
+    padding: 1.25rem 3rem; text-align: center; font-size: 0.78rem;
+  }
+
+  /* ════════════════════════════
+     SCREEN — CHECKOUT
+  ════════════════════════════ */
+  .checkout-summary {
+    background: var(--cream); border: 1px solid var(--border);
+    border-radius: 10px; padding: 1rem 1.25rem; margin-bottom: 0.5rem;
+  }
+  .checkout-summary-row {
+    display: flex; justify-content: space-between;
+    font-size: 0.875rem; color: var(--text-mid); padding: 4px 0;
+  }
+  .checkout-summary-row.checkout-total {
+    border-top: 1px solid var(--border); margin-top: 6px;
+    padding-top: 10px; font-weight: 600; color: var(--brown);
+    font-size: 0.95rem;
+  }
+  .login-field-row {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+  }
+  .card-input-wrap { position: relative; }
+  .card-input-wrap input { padding-right: 52px; }
+  .card-brand {
+    position: absolute; right: 12px; top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.7rem; font-weight: 700;
+    color: #1a1f71; letter-spacing: 0.05em;
+  }
 
   /* ── FOOTER ── */
   footer {
@@ -929,7 +1307,7 @@
         </div>
         <div class="plan-price" id="pro-price">$20 <span>/ month</span></div>
         <div class="plan-savings" id="pro-savings">&nbsp;</div>
-        <button class="plan-btn paid-btn" id="pro-btn">Get Pro — $20/mo</button>
+        <button class="plan-btn paid-btn" id="pro-btn" onclick="goToCheckout()">Get Pro — $20/mo</button>
       </div>
     </div>
 
@@ -996,6 +1374,7 @@
     <div class="member-tabs">
       <button class="mtab active" onclick="switchMemberTab('foods')">My Foods</button>
       <button class="mtab" onclick="switchMemberTab('sales-agg')">Sales</button>
+      <button class="mtab" onclick="switchMemberTab('website-tab')">My Website</button>
       <button class="mtab" onclick="switchMemberTab('license')">My License</button>
       <button class="mtab" onclick="switchMemberTab('legislation')">Legislation</button>
     </div>
@@ -1022,6 +1401,24 @@
           <span class="food-card-icon">🥒</span>
           <div class="food-card-name">Mary's Pickle</div>
           <div class="food-card-cat">Acidic, Pickled &amp; Home-canned</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- My Website -->
+    <div class="tab-panel" id="panel-website-tab">
+      <div class="website-tab-preview">
+        <div class="website-tab-info">
+          <div class="website-tab-url">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            cottagefoodwizard.com/mary-gonzalez
+          </div>
+          <h3 class="website-tab-name">Mary's Home Kitchen</h3>
+          <p class="website-tab-desc">Your website is live and ready to share.</p>
+        </div>
+        <div class="website-tab-actions">
+          <button class="action-btn ext" onclick="showScreen('screen-website-preview')">View my site →</button>
+          <button class="action-btn ext" onclick="showScreen('screen-website-builder')" style="margin-top:8px">Edit →</button>
         </div>
       </div>
     </div>
@@ -1199,6 +1596,328 @@
 </div><!-- /screen-billing -->
 
 
+<!-- ════════════════════════════════════
+     SCREEN — WEBSITE BUILDER
+════════════════════════════════════ -->
+<div class="screen" id="screen-website-builder">
+  <div class="builder-split">
+
+    <!-- LEFT: FORM -->
+    <div class="builder-left">
+      <div class="back-link" onclick="goToChecklist()">← Back</div>
+      <h2 class="screen-title" style="font-size:1.4rem;">Build your website</h2>
+      <p class="screen-sub" style="margin-bottom:1.5rem;">Fill in your details — the preview updates live on the right.</p>
+
+      <div class="builder-section">
+        <div class="profile-section-title">Business Details</div>
+        <div class="builder-field">
+          <label>Business name</label>
+          <input id="b-name" type="text" placeholder="e.g. Mary's Home Kitchen" oninput="updatePreview()">
+        </div>
+        <div class="builder-field">
+          <label>Tagline</label>
+          <input id="b-tagline" type="text" placeholder="e.g. Homemade with love, sold with pride." oninput="updatePreview()">
+        </div>
+        <div class="builder-field">
+          <label>What you sell</label>
+          <textarea id="b-sell" rows="3" placeholder="Describe your products in a sentence or two..." oninput="updatePreview()"></textarea>
+        </div>
+      </div>
+
+      <div class="builder-section">
+        <div class="profile-section-title">Photos</div>
+        <div class="builder-photos">
+          <div class="builder-photo-upload">
+            <label class="photo-upload-label" for="b-photo1">
+              <div class="photo-upload-inner" id="photo1-preview">
+                <span class="photo-upload-icon">📷</span>
+                <span class="photo-upload-text">Click to upload<br>photo 1</span>
+              </div>
+            </label>
+            <input type="file" id="b-photo1" accept="image/*" style="display:none" onchange="handlePhoto(this, 'photo1')">
+          </div>
+          <div class="builder-photo-upload">
+            <label class="photo-upload-label" for="b-photo2">
+              <div class="photo-upload-inner" id="photo2-preview">
+                <span class="photo-upload-icon">📷</span>
+                <span class="photo-upload-text">Click to upload<br>photo 2</span>
+              </div>
+            </label>
+            <input type="file" id="b-photo2" accept="image/*" style="display:none" onchange="handlePhoto(this, 'photo2')">
+          </div>
+        </div>
+      </div>
+
+      <div class="builder-section">
+        <div class="profile-section-title">Contact Information</div>
+        <div class="builder-field-row">
+          <div class="builder-field">
+            <label>Email</label>
+            <input id="b-email" type="email" placeholder="you@email.com" oninput="updatePreview()">
+          </div>
+          <div class="builder-field">
+            <label>Phone</label>
+            <input id="b-phone" type="tel" placeholder="(612) 555-0100" oninput="updatePreview()">
+          </div>
+        </div>
+      </div>
+
+      <div class="builder-section">
+        <div class="profile-section-title">Brand Color</div>
+        <div class="color-swatches">
+          <div class="color-swatch selected" style="background:#2d5a27" data-color="#2d5a27" data-pale="#f0f7ee" data-border="#c8e0c4" onclick="selectColor(this)" title="Forest Green"></div>
+          <div class="color-swatch" style="background:#C4622D" data-color="#C4622D" data-pale="#fdf0e8" data-border="#f0c4a8" onclick="selectColor(this)" title="Terracotta"></div>
+          <div class="color-swatch" style="background:#8B2635" data-color="#8B2635" data-pale="#faeaec" data-border="#e8b8be" onclick="selectColor(this)" title="Cranberry"></div>
+          <div class="color-swatch" style="background:#1B3A5C" data-color="#1B3A5C" data-pale="#e8eef5" data-border="#b8cce0" onclick="selectColor(this)" title="Navy"></div>
+          <div class="color-swatch" style="background:#6B3FA0" data-color="#6B3FA0" data-pale="#f2eefa" data-border="#d4bef0" onclick="selectColor(this)" title="Plum"></div>
+          <div class="color-swatch" style="background:#2E6B6B" data-color="#2E6B6B" data-pale="#e8f4f4" data-border="#b8dede" onclick="selectColor(this)" title="Teal"></div>
+          <div class="color-swatch" style="background:#C45C7A" data-color="#C45C7A" data-pale="#faecf0" data-border="#f0bece" onclick="selectColor(this)" title="Rose"></div>
+          <div class="color-swatch" style="background:#6B4C2E" data-color="#6B4C2E" data-pale="#f5ede4" data-border="#ddc8b0" onclick="selectColor(this)" title="Warm Brown"></div>
+          <div class="color-swatch" style="background:#1A5276" data-color="#1A5276" data-pale="#e8f0f8" data-border="#b0cce8" onclick="selectColor(this)" title="Ocean"></div>
+          <div class="color-swatch" style="background:#2C3E50" data-color="#2C3E50" data-pale="#eaecee" data-border="#b8c0c8" onclick="selectColor(this)" title="Midnight"></div>
+        </div>
+      </div>
+
+      <div class="builder-section">
+        <div class="profile-section-title">Where to Find You</div>
+        <div class="builder-venues">
+          <label class="venue-check"><input type="checkbox" id="v-market" onchange="updatePreview()"> Farmers Markets</label>
+          <label class="venue-check"><input type="checkbox" id="v-home" onchange="updatePreview()"> From Home</label>
+          <label class="venue-check"><input type="checkbox" id="v-events" onchange="updatePreview()"> Community Events</label>
+          <label class="venue-check"><input type="checkbox" id="v-church" onchange="updatePreview()"> Church</label>
+        </div>
+      </div>
+
+      <button class="primary-btn" onclick="publishSite()" style="margin-top:0.5rem">
+        Publish my site →
+      </button>
+    </div>
+
+    <!-- RIGHT: LIVE PREVIEW -->
+    <div class="builder-right">
+      <div class="builder-preview-chrome">
+        <div class="builder-preview-dots">
+          <span></span><span></span><span></span>
+        </div>
+        <div class="builder-preview-url">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          cottagefoodwizard.com/<span id="prev-slug">your-business</span>
+        </div>
+      </div>
+
+      <div class="mary-site" id="live-preview-site">
+
+        <header class="mary-header">
+          <div class="mary-logo" id="prev-logo">
+            <span class="prev-placeholder" style="width:160px; height:18px;"></span>
+          </div>
+          <nav class="mary-nav">
+            <a href="#">Home</a>
+            <a href="#">Products</a>
+            <a href="#">Contact</a>
+          </nav>
+        </header>
+
+        <section class="mary-hero" id="prev-hero">
+          <h1 id="prev-tagline-el">
+            <span class="prev-placeholder" style="width:80%; height:2.5rem; margin: 0 auto 0.5rem; display:block;"></span>
+            <span class="prev-placeholder" style="width:60%; height:2.5rem; margin: 0 auto; display:block;"></span>
+          </h1>
+          <p id="prev-sell-el" style="margin-top:1rem;">
+            <span class="prev-placeholder" style="width:70%; height:1rem; margin:0 auto; display:block;"></span>
+          </p>
+        </section>
+
+        <section class="mary-section">
+          <div class="mary-section-inner">
+            <div class="mary-section-text">
+              <div class="mary-eyebrow">What I make</div>
+              <h2 id="prev-name-el">
+                <span class="prev-placeholder" style="width:70%; height:1.5rem; display:block;"></span>
+              </h2>
+              <p id="prev-desc-el">
+                <span class="prev-placeholder" style="width:100%; height:0.85rem; display:block; margin-bottom:6px;"></span>
+                <span class="prev-placeholder" style="width:90%; height:0.85rem; display:block; margin-bottom:6px;"></span>
+                <span class="prev-placeholder" style="width:75%; height:0.85rem; display:block;"></span>
+              </p>
+            </div>
+            <div class="mary-section-photo">
+              <div id="prev-photo2" class="prev-photo-placeholder">
+                <span>🖼️</span><br>Photo 2 will appear here
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="mary-venues">
+          <div class="mary-venues-inner">
+            <div class="mary-eyebrow" style="text-align:center; margin-bottom:0.5rem;">Find me at</div>
+            <h2 style="text-align:center; margin-bottom:1.5rem;">Where to buy</h2>
+            <div class="mary-venue-cards" id="prev-venues">
+              <div class="prev-venue-placeholder">Select venues on the left</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="mary-contact">
+          <div class="mary-eyebrow">Get in touch</div>
+          <h2>I'd love to hear from you.</h2>
+          <div class="mary-contact-details" id="prev-contact">
+            <span class="prev-placeholder" style="width:180px; height:1rem; background:rgba(255,255,255,0.2);"></span>
+            <span class="prev-placeholder" style="width:140px; height:1rem; background:rgba(255,255,255,0.2);"></span>
+          </div>
+        </section>
+
+        <footer class="mary-footer" id="prev-footer">
+          © 2026 · Registered MN Cottage Food Producer
+        </footer>
+
+      </div>
+    </div>
+
+  </div>
+</div><!-- /screen-website-builder -->
+
+
+<!-- ════════════════════════════════════
+     SCREEN — WEBSITE PREVIEW
+════════════════════════════════════ -->
+<div class="screen" id="screen-website-preview">
+  <div class="preview-outer">
+
+    <div class="preview-topbar">
+      <div class="back-link" style="margin:0" onclick="showScreen('screen-website-builder')">← Back to editor</div>
+      <div class="preview-url-bar">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#2E5E3E" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        cottagefoodwizard.com/mary-gonzalez
+      </div>
+      <div style="width:160px"></div>
+    </div>
+
+    <!-- Mary's actual website -->
+    <div class="mary-site">
+
+      <header class="mary-header">
+        <div class="mary-logo">🍓 Mary's Home Kitchen</div>
+        <nav class="mary-nav">
+          <a href="#">Home</a>
+          <a href="#">Products</a>
+          <a href="#">Contact</a>
+        </nav>
+      </header>
+
+      <section class="mary-hero" style="background-image: linear-gradient(rgba(20,10,5,0.55), rgba(20,10,5,0.55)), url('https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?w=1200&q=80');">
+        <h1>Homemade with love,<br>sold with pride.</h1>
+        <p>Small-batch jams, jellies, and preserves made in St. Paul, Minnesota.</p>
+        <a href="#contact" class="mary-cta">Get in touch →</a>
+      </section>
+
+      <section class="mary-section">
+        <div class="mary-section-inner">
+          <div class="mary-section-text">
+            <div class="mary-eyebrow">What I make</div>
+            <h2>Good food, made from scratch.</h2>
+            <p>Jams, jellies, preserved vegetables, and pickles made from locally sourced Minnesota ingredients. Everything is made in small batches in my St. Paul kitchen.</p>
+            <p>All products are registered with the Minnesota Department of Agriculture and fully compliant with Minnesota cottage food law.</p>
+          </div>
+          <div class="mary-section-photo">
+            <img src="https://images.unsplash.com/photo-1488459716781-31db52582fe9?w=600&q=80" alt="Farmers market">
+          </div>
+        </div>
+      </section>
+
+      <section class="mary-venues">
+        <div class="mary-venues-inner">
+          <div class="mary-eyebrow" style="text-align:center; margin-bottom:0.5rem;">Find me at</div>
+          <h2 style="text-align:center; margin-bottom:2rem;">Where to buy</h2>
+          <div class="mary-venue-cards">
+            <div class="mary-venue-card">🌿 Farmers Markets</div>
+            <div class="mary-venue-card">🎪 Community Events</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="mary-contact" id="contact">
+        <div class="mary-eyebrow">Get in touch</div>
+        <h2>I'd love to hear from you.</h2>
+        <div class="mary-contact-details">
+          <span>📧 mary.gonzalez@email.com</span>
+          <span>📞 (612) 555-0182</span>
+        </div>
+      </section>
+
+      <footer class="mary-footer">
+        © 2026 Mary's Home Kitchen · St. Paul, MN · Registered MN Cottage Food Producer
+      </footer>
+
+    </div>
+  </div>
+</div><!-- /screen-website-preview -->
+
+
+<!-- ════════════════════════════════════
+     SCREEN — CHECKOUT
+════════════════════════════════════ -->
+<div class="screen" id="screen-checkout">
+  <div class="login-wrap" style="max-width: 500px;">
+
+    <div class="back-link" onclick="showScreen('screen-pricing')">← Back to pricing</div>
+
+    <div class="login-card">
+      <h2>Complete your upgrade</h2>
+      <p class="login-sub">Wizard Pro · <span id="checkout-plan-label">$20 / month</span></p>
+
+      <div class="checkout-summary">
+        <div class="checkout-summary-row">
+          <span>Wizard Pro (Monthly)</span>
+          <span>$20.00</span>
+        </div>
+        <div class="checkout-summary-row checkout-total">
+          <span>Total due today</span>
+          <span>$20.00</span>
+        </div>
+      </div>
+
+      <div style="margin: 1.5rem 0 0.75rem; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--text-light);">Payment details</div>
+
+      <div class="login-field">
+        <label>Name on card</label>
+        <input type="text" value="Mary Gonzalez">
+      </div>
+      <div class="login-field">
+        <label>Card number</label>
+        <div class="card-input-wrap">
+          <input type="text" value="4242  4242  4242  4242" style="padding-right: 48px;">
+          <span class="card-brand">VISA</span>
+        </div>
+      </div>
+      <div class="login-field-row">
+        <div class="login-field">
+          <label>Expiry</label>
+          <input type="text" value="12 / 28">
+        </div>
+        <div class="login-field">
+          <label>CVC</label>
+          <input type="text" value="123">
+        </div>
+      </div>
+      <div class="login-field">
+        <label>Email for receipt</label>
+        <input type="email" value="mary.gonzalez@email.com">
+      </div>
+
+      <button class="login-btn" onclick="completePayment()">Complete payment →</button>
+      <p style="font-size:0.72rem; color:var(--text-light); text-align:center; margin-top:0.75rem; line-height:1.5;">
+        🔒 Secured by Stripe. Cancel anytime.
+      </p>
+    </div>
+
+  </div>
+</div><!-- /screen-checkout -->
+
+
+<div class="publish-success" id="publish-toast">🎉 Your site is live at cottagefoodwizard.com/your-business</div>
+
 <footer>
   Copyright The Cottage Food Wizard 2026.
 </footer>
@@ -1359,6 +2078,7 @@ const PRE_CHECKED = new Set(['training', 'register']);
 
 /* ─── STATE ─── */
 let isLoggedIn        = false;
+let isProUser         = false;
 let userPath          = 'new';
 let selectedCats      = new Set();
 let checkedSteps      = new Set();
@@ -1404,6 +2124,133 @@ document.addEventListener('click', function(e) {
   }
 });
 
+function goToCheckout() {
+  // Sync the plan label from whatever tab is active
+  const isAnnual = document.querySelector('.ptab.active') &&
+    document.querySelector('.ptab.active').textContent.trim() === 'Annual';
+  document.getElementById('checkout-plan-label').textContent =
+    isAnnual ? '$200 / year' : '$20 / month';
+  showScreen('screen-checkout');
+}
+
+function completePayment() {
+  isProUser = true;
+  // If logged in, update nav; if not, set up as Mary
+  if (!isLoggedIn) {
+    isLoggedIn = true;
+    document.getElementById('nav-user-label').textContent = 'Mary Gonzalez';
+    document.getElementById('nav-chevron').style.display = 'inline-block';
+  }
+  showScreen('screen-website-builder');
+}
+
+function updatePreview() {
+  const name    = document.getElementById('b-name').value.trim();
+  const tagline = document.getElementById('b-tagline').value.trim();
+  const sell    = document.getElementById('b-sell').value.trim();
+  const email   = document.getElementById('b-email').value.trim();
+  const phone   = document.getElementById('b-phone').value.trim();
+
+  // Slug
+  const slug = name ? name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'') : 'your-business';
+  document.getElementById('prev-slug').textContent = slug;
+
+  // Logo
+  const logo = document.getElementById('prev-logo');
+  logo.innerHTML = name ? `🍓 ${name}` : '<span class="prev-placeholder" style="width:160px;height:18px;"></span>';
+
+  // Hero tagline
+  const tagEl = document.getElementById('prev-tagline-el');
+  tagEl.innerHTML = tagline ? tagline : '<span class="prev-placeholder" style="width:80%;height:2.5rem;margin:0 auto 0.5rem;display:block;"></span><span class="prev-placeholder" style="width:60%;height:2.5rem;margin:0 auto;display:block;"></span>';
+
+  // Hero sell preview
+  const sellHeroEl = document.getElementById('prev-sell-el');
+  sellHeroEl.innerHTML = sell
+    ? sell.substring(0, 80) + (sell.length > 80 ? '...' : '')
+    : '<span class="prev-placeholder" style="width:70%;height:1rem;margin:0 auto;display:block;"></span>';
+
+  // What I make section
+  const nameEl = document.getElementById('prev-name-el');
+  nameEl.innerHTML = name ? `Good food from ${name}.` : '<span class="prev-placeholder" style="width:70%;height:1.5rem;display:block;"></span>';
+
+  const descEl = document.getElementById('prev-desc-el');
+  descEl.innerHTML = sell ? sell : '<span class="prev-placeholder" style="width:100%;height:0.85rem;display:block;margin-bottom:6px;"></span><span class="prev-placeholder" style="width:90%;height:0.85rem;display:block;margin-bottom:6px;"></span><span class="prev-placeholder" style="width:75%;height:0.85rem;display:block;"></span>';
+
+  // Venues
+  const venues = [];
+  if (document.getElementById('v-market').checked)  venues.push('🌿 Farmers Markets');
+  if (document.getElementById('v-home').checked)    venues.push('🏡 From Home');
+  if (document.getElementById('v-events').checked)  venues.push('🎪 Community Events');
+  if (document.getElementById('v-church').checked)  venues.push('⛪ Church');
+  const venuesEl = document.getElementById('prev-venues');
+  venuesEl.innerHTML = venues.length
+    ? venues.map(v => `<div class="mary-venue-card">${v}</div>`).join('')
+    : '<div class="prev-venue-placeholder">Select venues on the left</div>';
+
+  // Contact
+  const contactEl = document.getElementById('prev-contact');
+  const contactItems = [];
+  if (email) contactItems.push(`📧 ${email}`);
+  if (phone) contactItems.push(`📞 ${phone}`);
+  contactEl.innerHTML = contactItems.length
+    ? contactItems.map(c => `<span>${c}</span>`).join('')
+    : '<span class="prev-placeholder" style="width:180px;height:1rem;background:rgba(255,255,255,0.2);display:inline-block;border-radius:4px;"></span>';
+
+  // Footer
+  document.getElementById('prev-footer').textContent =
+    `© 2026 ${name || 'Your Business'} · Registered MN Cottage Food Producer`;
+}
+
+function handlePhoto(input, which) {
+  if (!input.files || !input.files[0]) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const url = e.target.result;
+    const previewId = which === 'photo1' ? 'photo1-preview' : 'photo2-preview';
+    const inner = document.getElementById(previewId);
+    inner.classList.add('has-photo');
+    inner.style.backgroundImage = `url(${url})`;
+    inner.innerHTML = '';
+
+    if (which === 'photo1') {
+      // Apply to hero background
+      document.getElementById('prev-hero').style.backgroundImage =
+        `linear-gradient(rgba(20,10,5,0.55), rgba(20,10,5,0.55)), url(${url})`;
+    } else {
+      // Apply to section photo
+      const ph = document.getElementById('prev-photo2');
+      ph.style.backgroundImage = `url(${url})`;
+      ph.style.backgroundSize = 'cover';
+      ph.style.backgroundPosition = 'center';
+      ph.innerHTML = '';
+    }
+  };
+  reader.readAsDataURL(input.files[0]);
+}
+
+function publishSite() {
+  const toast = document.getElementById('publish-toast');
+  const name = document.getElementById('b-name').value.trim();
+  const slug = name ? name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'') : 'your-business';
+  toast.textContent = `🎉 Your site is live at cottagefoodwizard.com/${slug}`;
+  toast.classList.add('visible');
+  setTimeout(() => toast.classList.remove('visible'), 4000);
+}
+
+function selectColor(el) {
+  document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('selected'));
+  el.classList.add('selected');
+  document.querySelectorAll('.mary-site').forEach(site => {
+    site.style.setProperty('--mary-brand', el.dataset.color);
+    site.style.setProperty('--mary-brand-pale', el.dataset.pale);
+    site.style.setProperty('--mary-brand-border', el.dataset.border);
+  });
+}
+
+function goToWebsiteBuilder() {
+  showScreen('screen-website-builder');
+}
+
 function goHome() {
   isLoggedIn ? showScreen('screen-member') : showScreen('screen-home');
 }
@@ -1415,6 +2262,7 @@ function goToLogin() {
 
 function doLogin() {
   isLoggedIn = true;
+  isProUser  = true;
   document.getElementById('nav-user-label').textContent = 'Mary Gonzalez';
   document.getElementById('nav-chevron').style.display = 'inline-block';
   showScreen('screen-member');
@@ -1685,6 +2533,10 @@ function renderChecklist() {
         `</div>`;
     } else if (step.btnType === 'ext') {
       actionHTML = `<a href="${step.url}" target="_blank" rel="noopener" class="action-btn ext">${step.btnLabel}</a>`;
+    } else if (step.id === 'website' && isProUser) {
+      actionHTML = `<button class="action-btn ext" onclick="goToWebsiteBuilder()">Build your website →</button>`;
+    } else if (step.id === 'labels' && isProUser) {
+      actionHTML = `<button class="action-btn ext" onclick="goToPricing()">Create labels →</button>`;
     } else {
       actionHTML = `<button class="action-btn soon" onclick="goToPricing()">${step.btnLabel}</button>`;
     }
