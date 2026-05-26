@@ -70,6 +70,26 @@
   }
   .nav-user:hover { border-color: var(--amber); background: var(--amber-pale); }
 
+  .nav-right { position: relative; margin-left: auto; }
+  .nav-dropdown {
+    display: none; position: absolute; top: calc(100% + 8px); right: 0;
+    background: var(--warm-white); border: 1.5px solid var(--border);
+    border-radius: 12px; min-width: 180px;
+    box-shadow: 0 8px 24px rgba(59,42,26,0.1);
+    z-index: 200; overflow: hidden;
+  }
+  .nav-dropdown.open { display: block; animation: fadeUp 0.2s ease both; }
+  .nav-dropdown-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 11px 16px; font-size: 0.875rem;
+    color: var(--text-mid); cursor: pointer;
+    transition: background 0.15s;
+  }
+  .nav-dropdown-item:hover { background: var(--amber-pale); color: var(--brown); }
+  .nav-dropdown-item.logout { color: #c0392b; }
+  .nav-dropdown-item.logout:hover { background: #fdf0ee; }
+  .nav-dropdown-divider { height: 1px; background: var(--border); margin: 4px 0; }
+
   /* ── SCREENS ── */
   .screen { display: none; flex: 1; }
   .screen.active { display: block; animation: fadeUp 0.3s ease both; }
@@ -607,6 +627,38 @@
     font-weight: 300; font-style: italic;
   }
 
+  .sales-summary {
+    display: flex; gap: 1rem; margin-bottom: 1.25rem; margin-top: 1rem;
+  }
+  .sales-stat {
+    background: var(--warm-white); border: 1.5px solid var(--border);
+    border-radius: 12px; padding: 1rem 1.25rem; flex: 1;
+  }
+  .sales-stat-label { font-size: 0.72rem; color: var(--text-light); font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+  .sales-stat-value { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--brown); }
+  .sales-stat-value.green { color: var(--green); }
+
+  .sales-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+  .sales-table th {
+    padding: 0.6rem 0.75rem; text-align: left;
+    font-size: 0.72rem; font-weight: 500; letter-spacing: 0.05em;
+    text-transform: uppercase; color: var(--text-light);
+    border-bottom: 1.5px solid var(--border);
+  }
+  .sales-table th:not(:first-child) { text-align: right; }
+  .sales-table td {
+    padding: 0.7rem 0.75rem; color: var(--text);
+    border-bottom: 0.5px solid var(--border);
+  }
+  .sales-table td:not(:first-child) { text-align: right; color: var(--text-mid); }
+  .sales-table tr:last-child td { border-bottom: none; }
+  .sales-table tr:hover td { background: var(--amber-pale); }
+  .sales-table .total-row td {
+    border-top: 1.5px solid var(--border);
+    font-weight: 500; color: var(--brown);
+    background: var(--cream);
+  }
+
   .mtab.locked {
     color: var(--text-light); cursor: pointer;
     opacity: 0.6;
@@ -620,6 +672,61 @@
     padding: 1px 7px; border-radius: 10px;
     margin-left: 5px; vertical-align: middle;
   }
+
+  /* ════════════════════════════
+     SCREENS — PROFILE & BILLING
+  ════════════════════════════ */
+  .profile-section {
+    margin-bottom: 2rem;
+  }
+  .profile-section-title {
+    font-size: 0.75rem; font-weight: 600;
+    letter-spacing: 0.07em; text-transform: uppercase;
+    color: var(--brown-light); margin-bottom: 0.875rem;
+    padding-bottom: 0.5rem; border-bottom: 1px solid var(--border);
+  }
+  .profile-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+  }
+  .profile-field {
+    padding: 0.875rem 1rem;
+    border-bottom: 0.5px solid var(--border);
+  }
+  .profile-field:nth-child(odd) { border-right: 0.5px solid var(--border); }
+  .profile-label {
+    font-size: 0.72rem; font-weight: 500;
+    letter-spacing: 0.04em; text-transform: uppercase;
+    color: var(--text-light); margin-bottom: 4px;
+  }
+  .profile-value {
+    font-size: 0.9rem; color: var(--brown);
+  }
+
+  .billing-plan-card {
+    background: var(--warm-white); border: 1.5px solid var(--border);
+    border-radius: 12px; padding: 1.25rem 1.5rem;
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  }
+  .billing-plan-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; color: var(--brown); margin-bottom: 0.25rem;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .billing-plan-badge {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.7rem; font-weight: 500;
+    background: var(--amber-pale); color: var(--brown-light);
+    padding: 2px 8px; border-radius: 10px;
+  }
+  .billing-plan-desc { font-size: 0.82rem; color: var(--text-light); font-weight: 300; }
+  .billing-empty {
+    text-align: center; padding: 2rem;
+    color: var(--text-light); font-size: 0.9rem;
+    background: var(--warm-white); border: 1.5px solid var(--border);
+    border-radius: 12px;
+  }
+  .billing-empty span { font-size: 1.75rem; display: block; margin-bottom: 0.5rem; }
+  .billing-empty p { font-weight: 300; line-height: 1.6; }
 
   /* ── FOOTER ── */
   footer {
@@ -649,9 +756,25 @@
     The Cottage Food Wizard
   </div>
   <div class="nav-right">
-    <div class="nav-user" id="nav-user" onclick="goToLogin()">
+    <div class="nav-user" id="nav-user" onclick="handleNavUserClick()">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
       <span id="nav-user-label">Log in</span>
+      <svg id="nav-chevron" style="display:none; transition: transform 0.2s;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="nav-dropdown" id="nav-dropdown">
+      <div class="nav-dropdown-item" onclick="goToScreen('screen-profile')">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        My Profile
+      </div>
+      <div class="nav-dropdown-item" onclick="goToScreen('screen-billing')">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        Billing
+      </div>
+      <div class="nav-dropdown-divider"></div>
+      <div class="nav-dropdown-item logout" onclick="doLogout()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Log out
+      </div>
     </div>
   </div>
 </nav>
@@ -872,6 +995,7 @@
 
     <div class="member-tabs">
       <button class="mtab active" onclick="switchMemberTab('foods')">My Foods</button>
+      <button class="mtab" onclick="switchMemberTab('sales-agg')">Sales</button>
       <button class="mtab" onclick="switchMemberTab('license')">My License</button>
       <button class="mtab" onclick="switchMemberTab('legislation')">Legislation</button>
     </div>
@@ -900,6 +1024,11 @@
           <div class="food-card-cat">Acidic, Pickled &amp; Home-canned</div>
         </div>
       </div>
+    </div>
+
+    <!-- Sales (Aggregate) -->
+    <div class="tab-panel" id="panel-sales-agg">
+      <!-- rendered by JS on tab click -->
     </div>
 
     <!-- My License -->
@@ -940,6 +1069,7 @@
 
     <div class="member-tabs" style="margin-top: 1.5rem;">
       <button class="mtab active" onclick="switchFoodTab('ingredients')">Ingredients</button>
+      <button class="mtab" onclick="switchFoodTab('sales')">Sales</button>
       <button class="mtab locked" onclick="goToPricing()">
         Labels <span class="lock-badge">⭐ Upgrade</span>
       </button>
@@ -950,14 +1080,123 @@
 
     <!-- Ingredients -->
     <div class="tab-panel active" id="panel-ingredients">
-      <div class="empty-state">
-        <div class="empty-state-icon">🧂</div>
-        <p>No ingredients added yet.<br>This feature is coming soon.</p>
-      </div>
+    </div>
+
+    <!-- Sales -->
+    <div class="tab-panel" id="panel-sales">
     </div>
 
   </div>
 </div><!-- /screen-food -->
+
+
+<!-- ════════════════════════════════════
+     SCREEN — MY PROFILE
+════════════════════════════════════ -->
+<div class="screen" id="screen-profile">
+  <div class="member-wrap">
+    <div class="back-link" onclick="goHome()">← Back</div>
+    <h2 class="screen-title">My Profile</h2>
+    <p class="screen-sub">Your personal and business information.</p>
+
+    <div class="profile-section">
+      <div class="profile-section-title">Personal Information</div>
+      <div class="profile-grid">
+        <div class="profile-field">
+          <div class="profile-label">Full name</div>
+          <div class="profile-value">Mary Gonzalez</div>
+        </div>
+        <div class="profile-field">
+          <div class="profile-label">Email address</div>
+          <div class="profile-value">mary.gonzalez@email.com</div>
+        </div>
+        <div class="profile-field">
+          <div class="profile-label">Phone</div>
+          <div class="profile-value">(612) 555-0182</div>
+        </div>
+        <div class="profile-field">
+          <div class="profile-label">City</div>
+          <div class="profile-value">St. Paul, MN</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="profile-section">
+      <div class="profile-section-title">Business Information</div>
+      <div class="profile-grid">
+        <div class="profile-field">
+          <div class="profile-label">Business name</div>
+          <div class="profile-value">Mary's Home Kitchen</div>
+        </div>
+        <div class="profile-field">
+          <div class="profile-label">MDA Producer Number</div>
+          <div class="profile-value">CFP-2024-08841</div>
+        </div>
+        <div class="profile-field">
+          <div class="profile-label">Registration date</div>
+          <div class="profile-value">March 12, 2024</div>
+        </div>
+        <div class="profile-field">
+          <div class="profile-label">Renewal due</div>
+          <div class="profile-value" style="color: var(--amber); font-weight: 500;">March 12, 2027</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="profile-section">
+      <div class="profile-section-title">Preferred Selling Venues</div>
+      <div class="profile-grid">
+        <div class="profile-field">
+          <div class="profile-label">Primary channel</div>
+          <div class="profile-value">Farmers Markets</div>
+        </div>
+        <div class="profile-field">
+          <div class="profile-label">Secondary channel</div>
+          <div class="profile-value">Community Events</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- /screen-profile -->
+
+
+<!-- ════════════════════════════════════
+     SCREEN — BILLING
+════════════════════════════════════ -->
+<div class="screen" id="screen-billing">
+  <div class="member-wrap">
+    <div class="back-link" onclick="goHome()">← Back</div>
+    <h2 class="screen-title">Billing</h2>
+    <p class="screen-sub">Manage your plan and payment information.</p>
+
+    <div class="profile-section">
+      <div class="profile-section-title">Current Plan</div>
+      <div class="billing-plan-card">
+        <div class="billing-plan-info">
+          <div class="billing-plan-name">Starter <span class="billing-plan-badge">Free</span></div>
+          <div class="billing-plan-desc">Checklist, compliance guidance, and basic food tracking.</div>
+        </div>
+        <button class="primary-btn" style="width: auto; padding: 10px 20px; font-size: 0.875rem;" onclick="goToPricing()">Upgrade to Pro →</button>
+      </div>
+    </div>
+
+    <div class="profile-section">
+      <div class="profile-section-title">Payment Method</div>
+      <div class="billing-empty">
+        <span>💳</span>
+        <p>No payment method on file.<br>Add one when you upgrade to Pro.</p>
+      </div>
+    </div>
+
+    <div class="profile-section">
+      <div class="profile-section-title">Billing History</div>
+      <div class="billing-empty">
+        <span>🧾</span>
+        <p>No billing history yet.</p>
+      </div>
+    </div>
+  </div>
+</div><!-- /screen-billing -->
 
 
 <footer>
@@ -981,6 +1220,15 @@ const FOODS = [
       { name: 'Lemon juice', note: 'from a lemon Mary argued with' },
       { name: 'Pectin', note: 'added reluctantly' },
       { name: 'Existential dread', note: 'trace amounts' },
+    ],
+    sales: [
+      { date: 'Jan 15, 2026', venue: 'Farmers Market', units: 24, price: 8.00 },
+      { date: 'Feb 3, 2026',  venue: 'Community Event', units: 36, price: 8.00 },
+      { date: 'Feb 22, 2026', venue: 'Farmers Market', units: 30, price: 8.00 },
+      { date: 'Mar 15, 2026', venue: 'Church', units: 42, price: 8.00 },
+      { date: 'Apr 6, 2026',  venue: 'Farmers Market', units: 48, price: 8.00 },
+      { date: 'May 10, 2026', venue: 'Community Event', units: 60, price: 8.00 },
+      { date: 'May 24, 2026', venue: 'Farmers Market', units: 12, price: 8.00 },
     ]
   },
   {
@@ -994,6 +1242,14 @@ const FOODS = [
       { name: 'Vinegar', note: 'sharp, like Mary\'s Aunt Debra' },
       { name: 'Water', note: 'filtered through sheer optimism' },
       { name: 'A hint of regret', note: 'from the 6am part' },
+    ],
+    sales: [
+      { date: 'Jan 20, 2026', venue: 'From Home', units: 18, price: 10.00 },
+      { date: 'Feb 14, 2026', venue: 'Farmers Market', units: 24, price: 10.00 },
+      { date: 'Mar 8, 2026',  venue: 'Community Event', units: 30, price: 10.00 },
+      { date: 'Apr 12, 2026', venue: 'Farmers Market', units: 36, price: 10.00 },
+      { date: 'May 5, 2026',  venue: 'Church', units: 18, price: 10.00 },
+      { date: 'May 18, 2026', venue: 'Farmers Market', units: 18, price: 10.00 },
     ]
   },
   {
@@ -1007,6 +1263,13 @@ const FOODS = [
       { name: 'Salt', note: 'mostly from Mary\'s tears' },
       { name: 'Citric acid', note: 'for science' },
       { name: 'One basil leaf', note: 'it was expensive, okay' },
+    ],
+    sales: [
+      { date: 'Jan 22, 2026', venue: 'From Home', units: 30, price: 6.00 },
+      { date: 'Feb 10, 2026', venue: 'Farmers Market', units: 40, price: 6.00 },
+      { date: 'Mar 20, 2026', venue: 'Community Event', units: 50, price: 6.00 },
+      { date: 'Apr 15, 2026', venue: 'Farmers Market', units: 60, price: 6.00 },
+      { date: 'May 12, 2026', venue: 'From Home', units: 20, price: 6.00 },
     ]
   },
   {
@@ -1021,6 +1284,13 @@ const FOODS = [
       { name: 'Garlic', note: 'too much, obviously' },
       { name: 'Red pepper flakes', note: 'for drama' },
       { name: 'Salt', note: 'non-negotiable' },
+    ],
+    sales: [
+      { date: 'Jan 25, 2026', venue: 'Farmers Market', units: 12, price: 10.00 },
+      { date: 'Feb 17, 2026', venue: 'Church', units: 18, price: 10.00 },
+      { date: 'Mar 22, 2026', venue: 'Farmers Market', units: 25, price: 10.00 },
+      { date: 'Apr 20, 2026', venue: 'Community Event', units: 30, price: 10.00 },
+      { date: 'May 15, 2026', venue: 'Farmers Market', units: 37, price: 10.00 },
     ]
   },
 ];
@@ -1102,6 +1372,38 @@ function showScreen(id) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+function handleNavUserClick() {
+  if (!isLoggedIn) { showScreen('screen-login'); return; }
+  const dd = document.getElementById('nav-dropdown');
+  dd.classList.toggle('open');
+  document.getElementById('nav-chevron').style.transform =
+    dd.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)';
+}
+
+function goToScreen(id) {
+  document.getElementById('nav-dropdown').classList.remove('open');
+  document.getElementById('nav-chevron').style.transform = 'rotate(0deg)';
+  showScreen(id);
+}
+
+function doLogout() {
+  isLoggedIn = false;
+  document.getElementById('nav-user-label').textContent = 'Log in';
+  document.getElementById('nav-chevron').style.display = 'none';
+  document.getElementById('nav-dropdown').classList.remove('open');
+  showScreen('screen-home');
+}
+
+// Close dropdown when clicking outside
+document.addEventListener('click', function(e) {
+  const dd = document.getElementById('nav-dropdown');
+  const user = document.getElementById('nav-user');
+  if (!user.contains(e.target) && !dd.contains(e.target)) {
+    dd.classList.remove('open');
+    document.getElementById('nav-chevron').style.transform = 'rotate(0deg)';
+  }
+});
+
 function goHome() {
   isLoggedIn ? showScreen('screen-member') : showScreen('screen-home');
 }
@@ -1114,14 +1416,68 @@ function goToLogin() {
 function doLogin() {
   isLoggedIn = true;
   document.getElementById('nav-user-label').textContent = 'Mary Gonzalez';
+  document.getElementById('nav-chevron').style.display = 'inline-block';
   showScreen('screen-member');
 }
 
 function switchMemberTab(tab) {
-  document.querySelectorAll('.mtab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('#screen-member .mtab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('#screen-member .tab-panel').forEach(p => p.classList.remove('active'));
   document.querySelector(`#screen-member .mtab[onclick="switchMemberTab('${tab}')"]`).classList.add('active');
-  document.getElementById('panel-' + tab).classList.add('active');
+  const panel = document.getElementById('panel-' + tab);
+  panel.classList.add('active');
+  if (tab === 'sales-agg') renderAggregateSales();
+}
+
+function renderAggregateSales() {
+  const allRows = FOODS.flatMap(f =>
+    f.sales.map(s => ({ ...s, food: f.name, icon: f.icon, total: s.units * s.price }))
+  ).sort((a, b) => new Date(a.date) - new Date(b.date));
+
+  const totalRevenue = allRows.reduce((sum, r) => sum + r.total, 0);
+  const totalUnits   = allRows.reduce((sum, r) => sum + r.units, 0);
+
+  document.getElementById('panel-sales-agg').innerHTML = `
+    <div class="sales-summary">
+      <div class="sales-stat">
+        <div class="sales-stat-label">Total Revenue</div>
+        <div class="sales-stat-value green">$${totalRevenue.toLocaleString('en-US', {minimumFractionDigits: 2})}</div>
+      </div>
+      <div class="sales-stat">
+        <div class="sales-stat-label">Units Sold</div>
+        <div class="sales-stat-value">${totalUnits}</div>
+      </div>
+      <div class="sales-stat">
+        <div class="sales-stat-label">Transactions</div>
+        <div class="sales-stat-value">${allRows.length}</div>
+      </div>
+    </div>
+    <table class="sales-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Product</th>
+          <th>Venue</th>
+          <th>Units</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${allRows.map(r => `
+          <tr>
+            <td>${r.date}</td>
+            <td>${r.icon} ${r.food}</td>
+            <td>${r.venue}</td>
+            <td>${r.units}</td>
+            <td>$${r.total.toFixed(2)}</td>
+          </tr>`).join('')}
+        <tr class="total-row">
+          <td colspan="3">Total</td>
+          <td>${totalUnits}</td>
+          <td>$${totalRevenue.toLocaleString('en-US', {minimumFractionDigits: 2})}</td>
+        </tr>
+      </tbody>
+    </table>`;
 }
 
 function goToFood(foodId) {
@@ -1131,8 +1487,7 @@ function goToFood(foodId) {
   document.getElementById('food-detail-cat').innerHTML = food.cat;
 
   // Render ingredients
-  const panel = document.getElementById('panel-ingredients');
-  panel.innerHTML = `
+  document.getElementById('panel-ingredients').innerHTML = `
     <ul class="ingredient-list">
       ${food.ingredients.map(i => `
         <li class="ingredient-item">
@@ -1140,6 +1495,52 @@ function goToFood(foodId) {
           <span class="ingredient-note">${i.note}</span>
         </li>`).join('')}
     </ul>`;
+
+  // Render sales
+  const totalRevenue = food.sales.reduce((sum, s) => sum + s.units * s.price, 0);
+  const totalUnits   = food.sales.reduce((sum, s) => sum + s.units, 0);
+  document.getElementById('panel-sales').innerHTML = `
+    <div class="sales-summary">
+      <div class="sales-stat">
+        <div class="sales-stat-label">Total Revenue</div>
+        <div class="sales-stat-value green">$${totalRevenue.toLocaleString('en-US', {minimumFractionDigits: 2})}</div>
+      </div>
+      <div class="sales-stat">
+        <div class="sales-stat-label">Units Sold</div>
+        <div class="sales-stat-value">${totalUnits}</div>
+      </div>
+      <div class="sales-stat">
+        <div class="sales-stat-label">Transactions</div>
+        <div class="sales-stat-value">${food.sales.length}</div>
+      </div>
+    </div>
+    <table class="sales-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Venue</th>
+          <th>Units</th>
+          <th>Unit Price</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${food.sales.map(s => `
+          <tr>
+            <td>${s.date}</td>
+            <td>${s.venue}</td>
+            <td>${s.units}</td>
+            <td>$${s.price.toFixed(2)}</td>
+            <td>$${(s.units * s.price).toFixed(2)}</td>
+          </tr>`).join('')}
+        <tr class="total-row">
+          <td colspan="2">Total</td>
+          <td>${totalUnits}</td>
+          <td>—</td>
+          <td>$${totalRevenue.toLocaleString('en-US', {minimumFractionDigits: 2})}</td>
+        </tr>
+      </tbody>
+    </table>`;
 
   // Reset food tabs
   document.querySelectorAll('#screen-food .mtab').forEach(t => t.classList.remove('active'));
