@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Cottage Food Wizard — Minnesota</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧙</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -323,6 +324,9 @@
     border: none; font-family: 'DM Sans', sans-serif;
     transition: background 0.2s;
   }
+  .dual-btns {
+    display: flex; flex-direction: column; gap: 8px;
+  }
   .action-btn.ext {
     background: var(--amber-pale); color: var(--brown-mid);
     border: 1px solid var(--amber-light);
@@ -475,7 +479,7 @@
     <div class="progress-section">
       <div class="progress-header">
         <span class="progress-label">Your progress</span>
-        <span class="progress-count" id="prog-count">0 of 5 complete</span>
+        <span class="progress-count" id="prog-count">0 of 4 complete</span>
       </div>
       <div class="progress-track">
         <div class="progress-fill" id="prog-fill"></div>
@@ -519,34 +523,26 @@ const CATEGORIES = [
 
 const STEPS = [
   {
+    id:       'training',
+    title:    'Complete Required Training',
+    source:   'External — Minnesota Dept. of Agriculture',
+    srcType:  'ext',
+    desc:     'Minnesota requires all cottage food producers to complete an approved food safety training before registering. Choose the course that matches your expected annual sales.',
+    btnType:  'dual',
+    buttons:  [
+      { label: 'I plan to sell under $7,665 →',           url: 'https://www.mda.state.mn.us/sites/default/files/docs/2026-03/CottageFoodTraining_2.5Dec2025.pdf' },
+      { label: 'I plan to sell between $7,666–$78,000 →', url: 'https://learning.umn.edu/search/publicCourseSearchDetails.do?method=load&courseId=20561464' },
+    ],
+  },
+  {
     id:       'register',
     title:    'Register with the MDA',
     source:   'External — Minnesota Dept. of Agriculture',
     srcType:  'ext',
-    desc:     'Create your official cottage food producer registration with the Minnesota Department of Agriculture. This is the required first step before you can legally sell.',
+    desc:     'Create your official cottage food producer registration with the Minnesota Department of Agriculture. This is required before you can legally sell.',
     btnLabel: 'Go to MDA registration →',
     btnType:  'ext',
-    url:      'https://www.mda.state.mn.us/food-feed/cottage-food-producer-registration',
-  },
-  {
-    id:       'training',
-    title:    'Complete Required Training',
-    source:   'External — MN Farmers\' Market Association',
-    srcType:  'ext',
-    desc:     'Minnesota requires all cottage food producers to complete an approved food safety training course. The Cottage Foods Academy is your go-to resource.',
-    btnLabel: 'Go to Cottage Foods Academy →',
-    btnType:  'ext',
-    url:      'https://mfma.org/Cottage_Foods_Academy',
-  },
-  {
-    id:       'fee',
-    title:    'Pay Your Registration Fee',
-    source:   'External — Minnesota Dept. of Agriculture',
-    srcType:  'ext',
-    desc:     'Pay the annual registration fee through the MDA portal to finalize your registration and receive your official producer number.',
-    btnLabel: 'Pay registration fee →',
-    btnType:  'ext',
-    url:      'https://www.mda.state.mn.us/food-feed/cottage-food-producer-registration',
+    url:      'https://www2.mda.state.mn.us/webapp/erenewal/apply.jsp',
   },
   {
     id:       'website',
@@ -571,7 +567,7 @@ const STEPS = [
 ];
 
 // Steps pre-checked for existing sellers
-const PRE_CHECKED = new Set(['register', 'training', 'fee']);
+const PRE_CHECKED = new Set(['training', 'register']);
 
 
 /* ─── STATE ─── */
@@ -689,7 +685,11 @@ function renderChecklist() {
 
     // Action button
     let actionHTML = '';
-    if (step.btnType === 'ext') {
+    if (step.btnType === 'dual') {
+      actionHTML = `<div class="dual-btns">` +
+        step.buttons.map(b => `<a href="${b.url}" target="_blank" rel="noopener" class="action-btn ext">${b.label}</a>`).join('') +
+        `</div>`;
+    } else if (step.btnType === 'ext') {
       actionHTML = `<a href="${step.url}" target="_blank" rel="noopener" class="action-btn ext">${step.btnLabel}</a>`;
     } else {
       actionHTML = `<button class="action-btn soon">${step.btnLabel}</button>`;
