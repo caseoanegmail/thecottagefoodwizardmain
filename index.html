@@ -673,6 +673,15 @@
     margin-left: 5px; vertical-align: middle;
   }
 
+  .label-list { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1rem; }
+  .label-list-item {
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--warm-white); border: 1.5px solid var(--border);
+    border-radius: 12px; padding: 1rem 1.25rem; gap: 1rem;
+  }
+  .label-list-name { font-size: 0.9rem; font-weight: 500; color: var(--brown); }
+  .label-list-date { font-size: 0.78rem; color: var(--text-light); margin-top: 2px; }
+
   .add-food-btn {
     display: inline-flex; align-items: center; gap: 6px;
     margin-top: 1.25rem;
@@ -1116,6 +1125,193 @@
     content: ''; flex: 1; height: 1px; background: var(--border);
   }
 
+  .legislation-section { margin-bottom: 2rem; }
+  .leg-section-title {
+    font-size: 0.8rem; font-weight: 700;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--brown-light); margin-bottom: 1rem;
+    padding-bottom: 0.5rem; border-bottom: 1px solid var(--border);
+  }
+  .leg-section-subtitle {
+    font-size: 0.75rem; font-weight: 600;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    color: var(--text-light); margin: 1.25rem 0 0.75rem;
+  }
+  .leg-update-card {
+    background: var(--warm-white); border: 1.5px solid var(--border);
+    border-left: 4px solid var(--amber);
+    border-radius: 12px; padding: 1.25rem 1.5rem;
+  }
+  .leg-update-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem; color: var(--brown); margin-bottom: 0.75rem; font-weight: 700;
+  }
+  .leg-update-body {
+    font-size: 0.875rem; color: var(--text-mid);
+    line-height: 1.7; font-weight: 300; margin-bottom: 1rem;
+  }
+  .leg-update-body a { color: var(--amber); text-decoration: none; font-weight: 500; }
+  .leg-update-body a:hover { text-decoration: underline; }
+  .leg-changes-list {
+    list-style: none; display: flex; flex-direction: column; gap: 8px;
+    margin-bottom: 1rem; padding-left: 0;
+  }
+  .leg-changes-list li {
+    font-size: 0.875rem; color: var(--text-mid);
+    padding: 8px 12px; background: var(--cream);
+    border-radius: 8px; line-height: 1.5;
+  }
+  .leg-changes-list li::before { content: '✓ '; color: var(--green); font-weight: 700; }
+  .leg-update-note {
+    font-size: 0.8rem; color: var(--text-light);
+    font-style: italic; margin-top: 0.5rem;
+  }
+  .leg-docs-list { display: flex; flex-direction: column; gap: 8px; }
+  .leg-doc-link {
+    display: flex; align-items: center; gap: 10px;
+    padding: 11px 14px; background: var(--warm-white);
+    border: 1.5px solid var(--border); border-radius: 10px;
+    text-decoration: none; color: var(--text-mid);
+    font-size: 0.875rem; transition: border-color 0.15s, background 0.15s;
+  }
+  .leg-doc-link:hover { border-color: var(--amber); background: var(--amber-pale); color: var(--brown); }
+  .leg-doc-icon { font-size: 1rem; flex-shrink: 0; }
+  .leg-doc-tag {
+    display: inline-block; font-size: 0.68rem; font-weight: 600;
+    background: var(--amber-pale); color: var(--amber);
+    border: 1px solid var(--amber-light);
+    padding: 1px 6px; border-radius: 4px; margin-left: 6px;
+    vertical-align: middle; letter-spacing: 0.04em;
+  }
+
+  /* ════════════════════════════
+     LABEL FORM & PREVIEW
+  ════════════════════════════ */
+  .label-form-card {
+    background: var(--warm-white);
+    border: 1.5px solid var(--border);
+    border-radius: 16px; padding: 2rem;
+  }
+  .allergen-tooltip-wrap {
+    position: relative; display: inline-block;
+    margin-left: 6px; cursor: pointer;
+  }
+  .allergen-tip-icon {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 16px; height: 16px; border-radius: 50%;
+    background: var(--amber-pale); border: 1px solid var(--amber-light);
+    font-size: 0.65rem; font-weight: 700; color: var(--amber);
+    vertical-align: middle;
+  }
+  .allergen-tooltip {
+    display: none; position: absolute; bottom: 125%; left: 50%;
+    transform: translateX(-50%);
+    background: var(--brown); color: white;
+    font-size: 0.75rem; font-weight: 400; line-height: 1.5;
+    padding: 8px 12px; border-radius: 8px;
+    width: 260px; text-align: left; z-index: 10;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  }
+  .allergen-tooltip::after {
+    content: ''; position: absolute; top: 100%; left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: var(--brown);
+  }
+  .allergen-tooltip-wrap:hover .allergen-tooltip { display: block; }
+
+  /* Label preview actions */
+  .label-preview-actions {
+    display: flex; justify-content: space-between;
+    align-items: center; margin-bottom: 1.5rem;
+  }
+
+  /* The actual label */
+  .label-output {
+    background: white;
+    border: 2px solid #1a1a1a;
+    border-radius: 8px;
+    overflow: hidden;
+    font-family: 'DM Sans', sans-serif;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+  }
+  .label-brand-bar {
+    height: 12px;
+    background: var(--amber);
+  }
+  .label-body { padding: 1.5rem; }
+  .label-header-row {
+    display: flex; align-items: flex-start;
+    justify-content: space-between; gap: 1rem;
+    margin-bottom: 0.75rem;
+  }
+  .label-product-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; font-weight: 700;
+    color: #1a1a1a; line-height: 1.2;
+    text-transform: uppercase; letter-spacing: 0.02em;
+    flex: 1;
+  }
+  .label-barcode-wrap {
+    flex-shrink: 0;
+  }
+  .label-barcode-wrap svg { display: block; }
+  .label-producer {
+    text-align: center; font-size: 0.85rem;
+    color: #444; margin-bottom: 0.25rem;
+    line-height: 1.5;
+  }
+  .label-date {
+    text-align: center; font-size: 0.8rem;
+    color: #666; margin-bottom: 0.75rem;
+    font-style: italic;
+  }
+  .label-divider {
+    border: none; border-top: 1px solid #ddd;
+    margin: 0.75rem 0;
+  }
+  .label-section-title {
+    font-size: 0.72rem; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: #1a1a1a; margin-bottom: 0.35rem;
+  }
+  .label-ingredients {
+    font-size: 0.82rem; color: #333; line-height: 1.6;
+    margin-bottom: 0.25rem;
+  }
+  .label-statement {
+    font-size: 0.75rem; color: #555;
+    line-height: 1.6; font-style: italic;
+    text-align: center;
+  }
+  .label-qr-section {
+    display: flex; align-items: center; gap: 1rem;
+    padding-top: 0.5rem;
+  }
+  .label-qr-box {
+    width: 72px; height: 72px; min-width: 72px;
+    display: flex; align-items: center; justify-content: center;
+    background: white;
+  }
+  .label-qr-box svg { display: block; }
+  .label-qr-text {
+    font-size: 0.75rem; color: #555; line-height: 1.5;
+  }
+
+  /* Print styles */
+  @media print {
+    body > *:not(#screen-label-preview) { display: none !important; }
+    #screen-label-preview { display: block !important; }
+    .no-print { display: none !important; }
+    nav { display: none !important; }
+    .label-output {
+      border: 2px solid #1a1a1a;
+      box-shadow: none;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+  }
+
   /* ════════════════════════════
      SCREEN — CHECKOUT
   ════════════════════════════ */
@@ -1142,6 +1338,19 @@
     transform: translateY(-50%);
     font-size: 0.7rem; font-weight: 700;
     color: #1a1f71; letter-spacing: 0.05em;
+  }
+
+  .help-faq-item {
+    background: var(--warm-white); border: 1.5px solid var(--border);
+    border-radius: 10px; padding: 1rem 1.25rem; margin-bottom: 8px;
+  }
+  .help-faq-q {
+    font-size: 0.875rem; font-weight: 500; color: var(--brown);
+    margin-bottom: 0.35rem;
+  }
+  .help-faq-a {
+    font-size: 0.82rem; color: var(--text-mid);
+    font-weight: 300; line-height: 1.6;
   }
 
   /* ── FOOTER ── */
@@ -1186,6 +1395,14 @@
       <div class="nav-dropdown-item" onclick="goToScreen('screen-billing')">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
         Billing
+      </div>
+      <div class="nav-dropdown-item" onclick="goToScreen('screen-help')">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        Help
+      </div>
+      <div class="nav-dropdown-item" onclick="window.location.href='mailto:support@cottagefoodwizard.com'">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Contact support
       </div>
       <div class="nav-dropdown-divider"></div>
       <div class="nav-dropdown-item logout" onclick="doLogout()">
@@ -1531,9 +1748,57 @@
 
     <!-- Legislation -->
     <div class="tab-panel" id="panel-legislation">
-      <div class="empty-state">
-        <div class="empty-state-icon">⚖️</div>
-        <p>Minnesota cottage food legislation updates will appear here.</p>
+      <div class="legislation-section">
+        <div class="leg-section-title">🔔 Recent Updates</div>
+        <div class="leg-update-card">
+          <div class="leg-update-headline">2025 Law Changes — Effective August 1, 2027</div>
+          <p class="leg-update-body">Revisions to the cottage food law that passed in 2025 will take effect August 1, 2027. For full details, refer to changes in <a href="https://www.revisor.mn.gov/laws/2025/0/34/laws.5.14.0#laws.5.14.0" target="_blank" rel="noopener">Stat. 28A.152</a> (subd. 1–5 and 8) for human cottage foods and <a href="https://www.revisor.mn.gov/laws/2025/0/34/laws.3.14.0#laws.3.14.0" target="_blank" rel="noopener">Stat. 25.391</a> (subd. 1 and 2) for cottage pet treats.</p>
+          <ul class="leg-changes-list">
+            <li><strong>One registration tier for all</strong> — Tier 1 and Tier 2 distinctions are eliminated</li>
+            <li><strong>$30 annual fee</strong> for all registrants</li>
+            <li><strong>Shipping within Minnesota</strong> will be permitted</li>
+            <li><strong>Advanced training required</strong> for all registrants</li>
+          </ul>
+          <p class="leg-update-note">The MDA will begin implementation planning in 2026.</p>
+        </div>
+      </div>
+
+      <div class="legislation-section">
+        <div class="leg-section-title">📄 Important Documents</div>
+        <div class="leg-docs-list">
+          <a href="https://www.mda.state.mn.us/sites/default/files/docs/2026-03/CottageFoodTraining_2.5Dec2025.pdf" target="_blank" rel="noopener" class="leg-doc-link">
+            <span class="leg-doc-icon">📋</span>
+            <span>Cottage Food Producer Tier 1 Training <span class="leg-doc-tag">PDF</span></span>
+          </a>
+          <a href="https://www.mda.state.mn.us/sites/default/files/docs/2025-04/CrossBorderFoodSales.pdf" target="_blank" rel="noopener" class="leg-doc-link">
+            <span class="leg-doc-icon">📋</span>
+            <span>Local Foods Cross-Border Sales in Minnesota <span class="leg-doc-tag">PDF</span></span>
+          </a>
+          <a href="https://www.mda.state.mn.us/sites/default/files/docs/2026-03/CottageFoodsFactSheet11.25.pdf" target="_blank" rel="noopener" class="leg-doc-link">
+            <span class="leg-doc-icon">📋</span>
+            <span>Cottage Food Fact Sheet <span class="leg-doc-tag">PDF</span></span>
+          </a>
+          <a href="https://www.mda.state.mn.us/sites/default/files/docs/2024-08/Product%20of%20the%20Farm%20vs%20Cottage%20Food%20WEB.pdf" target="_blank" rel="noopener" class="leg-doc-link">
+            <span class="leg-doc-icon">📋</span>
+            <span>Food Licensing Exemptions — Cottage Food vs. Product of the Farm <span class="leg-doc-tag">PDF</span></span>
+          </a>
+        </div>
+
+        <div class="leg-section-subtitle">External Links</div>
+        <div class="leg-docs-list">
+          <a href="https://extension.umn.edu/courses/cottage-food-producer-food-safety-training" target="_blank" rel="noopener" class="leg-doc-link">
+            <span class="leg-doc-icon">🔗</span>
+            <span>University of Minnesota Extension — Cottage Food Producer Training</span>
+          </a>
+          <a href="https://www.revisor.mn.gov/laws/2015/1/Session+Law/Chapter/4/#laws.2.53.0" target="_blank" rel="noopener" class="leg-doc-link">
+            <span class="leg-doc-icon">🔗</span>
+            <span>Cottage Foods Exemption (MN Revisor)</span>
+          </a>
+          <a href="https://mfma.org/Cottage_Foods_Academy" target="_blank" rel="noopener" class="leg-doc-link">
+            <span class="leg-doc-icon">🔗</span>
+            <span>Cottage Foods Academy — Minnesota Farmers' Market Association</span>
+          </a>
+        </div>
       </div>
     </div>
 
@@ -1557,15 +1822,8 @@
       </div>
     </div>
 
-    <div class="member-tabs" style="margin-top: 1.5rem;">
-      <button class="mtab active" onclick="switchFoodTab('ingredients')">Ingredients</button>
-      <button class="mtab" onclick="switchFoodTab('sales')">Sales</button>
-      <button class="mtab locked" onclick="goToPricing()">
-        Labels <span class="lock-badge">⭐ Upgrade</span>
-      </button>
-      <button class="mtab locked" onclick="goToPricing()">
-        Inventory <span class="lock-badge">⭐ Upgrade</span>
-      </button>
+    <div class="member-tabs" style="margin-top: 1.5rem;" id="food-detail-tabs">
+      <!-- rendered dynamically by goToFood() -->
     </div>
 
     <!-- Ingredients -->
@@ -1574,6 +1832,18 @@
 
     <!-- Sales -->
     <div class="tab-panel" id="panel-sales">
+    </div>
+
+    <!-- Labels -->
+    <div class="tab-panel" id="panel-labels-food">
+    </div>
+
+    <!-- Inventory -->
+    <div class="tab-panel" id="panel-inventory">
+      <div class="empty-state">
+        <div class="empty-state-icon">📦</div>
+        <p>No inventory records yet.<br>Inventory tracking is coming soon.</p>
+      </div>
     </div>
 
   </div>
@@ -2011,6 +2281,91 @@
 <div class="publish-success" id="publish-toast">🎉 Your site is live at cottagefoodwizard.com/your-business</div>
 
 <!-- ════════════════════════════════════
+     SCREEN — LABEL FORM
+════════════════════════════════════ -->
+<div class="screen" id="screen-label-form">
+  <div class="member-wrap" style="max-width:620px;">
+    <div class="back-link" onclick="showScreen('screen-food'); switchFoodTab('labels-food')">← Back</div>
+    <h2 class="screen-title">New label</h2>
+    <p class="screen-sub" id="lf-food-name-sub">Creating a label for this food.</p>
+
+    <div class="label-form-card">
+
+      <div class="login-field">
+        <label>Producer name or business name</label>
+        <input type="text" id="lf-name" placeholder="Mary Gonzalez or Mary's Home Kitchen">
+      </div>
+
+      <div class="login-field">
+        <label>Registration number or address on application</label>
+        <input type="text" id="lf-reg" placeholder="CFP-2024-08841 or 123 Main St, St. Paul MN">
+      </div>
+
+      <div class="login-field">
+        <label>Date food was made</label>
+        <input type="date" id="lf-date">
+      </div>
+
+      <div class="login-field">
+        <label>Required statement</label>
+        <textarea id="lf-statement" rows="2" style="resize:none;">These products are homemade and not subject to state inspection.</textarea>
+      </div>
+
+      <div class="login-field">
+        <label>
+          Ingredients
+          <span class="allergen-tooltip-wrap">
+            <span class="allergen-tip-icon">ℹ</span>
+            <span class="allergen-tooltip">Allergens of concern: milk, eggs, wheat, soy, peanuts, tree nuts, fish, shellfish, and sesame. Bold or highlight these in your ingredient list.</span>
+          </span>
+        </label>
+        <textarea id="lf-ingredients" rows="4" placeholder="e.g. Strawberries, Sugar, Lemon juice, Pectin"></textarea>
+      </div>
+
+      <button class="login-btn" onclick="generateLabel()">Generate label →</button>
+    </div>
+  </div>
+</div><!-- /screen-label-form -->
+
+
+<!-- ════════════════════════════════════
+     SCREEN — LABEL PREVIEW
+════════════════════════════════════ -->
+<div class="screen" id="screen-label-preview">
+  <div class="member-wrap" style="max-width:520px;">
+
+    <div class="label-preview-actions no-print">
+      <div class="back-link" style="margin:0" onclick="showScreen('screen-label-form')">← Back to edit</div>
+      <button class="action-btn ext" onclick="window.print()">🖨 Print / Save PDF</button>
+    </div>
+
+    <div id="label-output" class="label-output">
+      <div class="label-brand-bar" id="lp-brand-bar"></div>
+      <div class="label-body">
+        <div class="label-header-row">
+          <div class="label-product-name" id="lp-product-name"></div>
+          <div class="label-barcode-wrap" id="lp-barcode"></div>
+        </div>
+        <div class="label-producer" id="lp-producer"></div>
+        <div class="label-date" id="lp-date"></div>
+        <div class="label-divider"></div>
+        <div class="label-section-title">Ingredients</div>
+        <div class="label-ingredients" id="lp-ingredients"></div>
+        <div class="label-divider"></div>
+        <div class="label-statement" id="lp-statement"></div>
+        <div class="label-divider"></div>
+        <div class="label-qr-section">
+          <div class="label-qr-box" id="lp-qr"></div>
+          <div class="label-qr-text">Scan to visit our website<br>for more products</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /screen-label-preview -->
+
+
+<!-- ════════════════════════════════════
      SCREEN — ADD FOOD
 ════════════════════════════════════ -->
 <div class="screen" id="screen-add-food">
@@ -2046,6 +2401,50 @@
     </div>
   </div>
 </div><!-- /screen-add-food -->
+
+
+<!-- ════════════════════════════════════
+     SCREEN — HELP
+════════════════════════════════════ -->
+<div class="screen" id="screen-help">
+  <div class="member-wrap" style="max-width:660px;">
+    <div class="back-link" onclick="goHome()">← Back</div>
+    <h2 class="screen-title">Help</h2>
+    <p class="screen-sub">Frequently asked questions and resources.</p>
+
+    <div class="legislation-section">
+      <div class="leg-section-title">❓ Common Questions</div>
+      <div class="leg-docs-list">
+        <div class="help-faq-item">
+          <div class="help-faq-q">How do I add a new food product?</div>
+          <div class="help-faq-a">Go to My Foods and click the "+ Add a food" button at the bottom of the page.</div>
+        </div>
+        <div class="help-faq-item">
+          <div class="help-faq-q">How do I generate a label?</div>
+          <div class="help-faq-a">Open any food from My Foods, click the Labels tab, then click "+ Add label." Labels require a Pro account.</div>
+        </div>
+        <div class="help-faq-item">
+          <div class="help-faq-q">How do I print or save my label as a PDF?</div>
+          <div class="help-faq-a">On the label preview screen, click "🖨 Print / Save PDF." Your browser will open a print dialog where you can choose "Save as PDF."</div>
+        </div>
+        <div class="help-faq-item">
+          <div class="help-faq-q">What does the legislation tab contain?</div>
+          <div class="help-faq-a">Recent changes to Minnesota cottage food law, important MDA documents, and links to key external resources.</div>
+        </div>
+        <div class="help-faq-item">
+          <div class="help-faq-q">How do I cancel my Pro subscription?</div>
+          <div class="help-faq-a">Go to Billing in your account menu and click "Cancel subscription." Your access continues until the end of your billing period.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="legislation-section">
+      <div class="leg-section-title">📬 Still need help?</div>
+      <p style="font-size:0.875rem; color:var(--text-mid); font-weight:300; margin-bottom:1rem;">Our support team is available Monday–Friday, 9am–5pm CT.</p>
+      <a href="mailto:support@cottagefoodwizard.com" class="primary-btn" style="display:inline-block; width:auto; text-decoration:none; padding:12px 24px;">Email support →</a>
+    </div>
+  </div>
+</div><!-- /screen-help -->
 
 
 <footer>
@@ -2216,6 +2615,8 @@ let userPath          = 'new';
 let builderSource     = 'checklist';
 let previewSource     = 'builder';
 let userAddedFoods    = [];
+let currentFoodId     = '';
+let foodLabels        = {};
 let selectedCats      = new Set();
 let checkedSteps      = new Set();
 
@@ -2250,6 +2651,8 @@ function doLogout() {
   currentUserEmail = '';
   userPath         = 'new';
   userAddedFoods   = [];
+  foodLabels       = {};
+  currentFoodId    = '';
   selectedCats.clear();
   checkedSteps.clear();
   // Reset nav
@@ -2455,6 +2858,205 @@ function publishSite() {
   renderMemberHome();
   showScreen('screen-member');
   switchMemberTab('website-tab');
+}
+
+function makeSeed(str) {
+  let s = 0;
+  for (let i = 0; i < str.length; i++) s = (Math.imul(31, s) + str.charCodeAt(i)) | 0;
+  return s >>> 0;
+}
+
+function nextRand(s) {
+  s = (Math.imul(1664525, s) + 1013904223) >>> 0;
+  return s;
+}
+
+function generateQRSvg(seed) {
+  const S = 21;
+  const C = 4; // cell size px
+  const Q = 2; // quiet zone cells
+  const finder = [[1,1,1,1,1,1,1],[1,0,0,0,0,0,1],[1,0,1,1,1,0,1],[1,0,1,1,1,0,1],[1,0,1,1,1,0,1],[1,0,0,0,0,0,1],[1,1,1,1,1,1,1]];
+  const m = Array.from({length:S}, () => Array(S).fill(-1));
+
+  // Place finders
+  const places = [[0,0],[0,S-7],[S-7,0]];
+  places.forEach(([r,c]) => {
+    for (let i=0;i<7;i++) for (let j=0;j<7;j++) m[r+i][c+j] = finder[i][j];
+  });
+  // Separators
+  for (let i=0;i<=7;i++) { if(m[7][i]===-1) m[7][i]=0; if(m[i][7]===-1) m[i][7]=0; }
+  for (let i=0;i<=7;i++) { if(m[7][S-1-i]===-1) m[7][S-1-i]=0; if(m[i][S-8]===-1) m[i][S-8]=0; }
+  for (let i=0;i<=7;i++) { if(m[S-8][i]===-1) m[S-8][i]=0; if(m[S-1-i][7]===-1) m[S-1-i][7]=0; }
+  // Timing
+  for (let i=8;i<S-8;i++) { if(m[6][i]===-1) m[6][i]=i%2===0?1:0; if(m[i][6]===-1) m[i][6]=i%2===0?1:0; }
+  // Dark module
+  m[13][8] = 1;
+  // Fill data
+  let s = seed;
+  for (let r=0;r<S;r++) for (let c=0;c<S;c++) if(m[r][c]===-1) { s=nextRand(s); m[r][c]=(s>>>16)&1; }
+
+  const total = (S + 2*Q)*C;
+  let rects = '';
+  for (let r=0;r<S;r++) for (let c=0;c<S;c++) {
+    if (m[r][c]===1) rects += `<rect x="${(c+Q)*C}" y="${(r+Q)*C}" width="${C}" height="${C}"/>`;
+  }
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${total}" height="${total}" viewBox="0 0 ${total} ${total}"><rect width="${total}" height="${total}" fill="white"/><g fill="black">${rects}</g></svg>`;
+}
+
+function generateBarcodeSvg(seed) {
+  let s = seed;
+  const bars = [];
+  let x = 0;
+  const h = 46, numY = 58;
+
+  // Guard bars: thin-gap-thin
+  const guard = () => {
+    bars.push({x, w:2, h}); x+=3;
+    bars.push({x, w:1, h}); x+=2;
+    bars.push({x, w:2, h}); x+=3;
+  };
+  guard();
+
+  // 24 data bar groups
+  for (let i=0;i<24;i++) {
+    s = nextRand(s);
+    const bw = (s % 3) + 1;
+    bars.push({x, w:bw, h:h-(i%3===0?0:3)});
+    x += bw;
+    s = nextRand(s);
+    x += (s%2)+1; // space
+  }
+
+  // Middle guard
+  bars.push({x, w:1, h}); x+=2;
+  bars.push({x, w:3, h}); x+=4;
+  bars.push({x, w:1, h}); x+=2;
+
+  // 24 more data bars
+  for (let i=0;i<24;i++) {
+    s = nextRand(s);
+    const bw = (s % 3) + 1;
+    bars.push({x, w:bw, h:h-(i%4===0?0:2)});
+    x += bw;
+    s = nextRand(s);
+    x += (s%2)+1;
+  }
+
+  guard();
+
+  // Generate 13 fake digits
+  let ds = seed;
+  let digits = '';
+  for (let i=0;i<13;i++) { ds = nextRand(ds); digits += ds%10; }
+  const num = `${digits[0]}  ${digits.slice(1,7)}  ${digits.slice(7)}`;
+
+  const W = x;
+  const rects = bars.map(b => `<rect x="${b.x}" y="5" width="${b.w}" height="${b.h}" fill="black"/>`).join('');
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${numY+4}" viewBox="0 0 ${W} ${numY+4}"><rect width="${W}" height="${numY+4}" fill="white"/>${rects}<text x="${W/2}" y="${numY}" text-anchor="middle" font-family="monospace" font-size="9" fill="black">${num}</text></svg>`;
+}
+
+function populateLabelGraphics(seed) {
+  document.getElementById('lp-qr').innerHTML = generateQRSvg(seed);
+  document.getElementById('lp-barcode').innerHTML = generateBarcodeSvg(seed);
+}
+
+function renderLabelsPanel(food) {
+  const labels = foodLabels[food.id] || [];
+  const panel = document.getElementById('panel-labels-food');
+  if (labels.length === 0) {
+    panel.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-state-icon">🏷️</div>
+        <p>No labels yet for this product.</p>
+      </div>
+      <button class="add-food-btn" onclick="goToLabelForm('${food.id}')">+ Add label</button>`;
+  } else {
+    panel.innerHTML = `
+      <div class="label-list">
+        ${labels.map((l, i) => `
+          <div class="label-list-item">
+            <div class="label-list-info">
+              <div class="label-list-name">${food.name}</div>
+              <div class="label-list-date">Made: ${l.date}</div>
+            </div>
+            <button class="action-btn ext" onclick="viewLabel(${i}, '${food.id}')">View →</button>
+          </div>`).join('')}
+      </div>
+      <button class="add-food-btn" onclick="goToLabelForm('${food.id}')">+ Add another label</button>`;
+  }
+}
+
+function goToLabelForm(foodId) {
+  currentFoodId = foodId;
+  const food = FOODS.find(f => f.id === foodId);
+
+  document.getElementById('lf-food-name-sub').textContent = `Creating a label for: ${food.name}`;
+  document.getElementById('lf-name').value = currentUserName || '';
+  document.getElementById('lf-reg').value = currentUser === 'mary' ? 'CFP-2024-08841' : '';
+
+  // Default date to today
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('lf-date').value = today;
+
+  document.getElementById('lf-statement').value = 'These products are homemade and not subject to state inspection.';
+
+  // Pre-populate ingredients from food data
+  const ingredientStr = food.ingredients.map(i => i.name).join(', ');
+  document.getElementById('lf-ingredients').value = ingredientStr;
+
+  showScreen('screen-label-form');
+}
+
+function generateLabel() {
+  const name        = document.getElementById('lf-name').value.trim();
+  const reg         = document.getElementById('lf-reg').value.trim();
+  const date        = document.getElementById('lf-date').value;
+  const statement   = document.getElementById('lf-statement').value.trim();
+  const ingredients = document.getElementById('lf-ingredients').value.trim();
+
+  if (!name || !date || !ingredients) {
+    alert('Please fill in all required fields.');
+    return;
+  }
+
+  const food = FOODS.find(f => f.id === currentFoodId);
+  const formattedDate = date ? new Date(date + 'T12:00:00').toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' }) : '';
+
+  // Save label to history
+  if (!foodLabels[currentFoodId]) foodLabels[currentFoodId] = [];
+  const labelSeed = makeSeed(currentFoodId + name + date);
+  foodLabels[currentFoodId].push({ name, reg, date: formattedDate, statement, ingredients, seed: labelSeed });
+
+  // Populate label preview
+  document.getElementById('lp-product-name').textContent = food ? food.name : currentFoodId;
+  document.getElementById('lp-producer').innerHTML = `${name}${reg ? '<br>' + reg : ''}`;
+  document.getElementById('lp-date').textContent = `Date made: ${formattedDate}`;
+  document.getElementById('lp-ingredients').textContent = ingredients;
+  document.getElementById('lp-statement').textContent = statement;
+
+  // Graphics
+  populateLabelGraphics(labelSeed);
+
+  // Apply brand color to label bar
+  const brand = document.querySelector('.mary-site')?.style.getPropertyValue('--mary-brand') || '#2d5a27';
+  document.querySelector('.label-brand-bar').style.background = brand;
+
+  showScreen('screen-label-preview');
+}
+
+function viewLabel(index, foodId) {
+  const label = foodLabels[foodId]?.[index];
+  const food  = FOODS.find(f => f.id === foodId);
+  if (!label || !food) return;
+
+  document.getElementById('lp-product-name').textContent = food.name;
+  document.getElementById('lp-producer').innerHTML = `${label.name}${label.reg ? '<br>' + label.reg : ''}`;
+  document.getElementById('lp-date').textContent = `Date made: ${label.date}`;
+  document.getElementById('lp-ingredients').textContent = label.ingredients;
+  document.getElementById('lp-statement').textContent = label.statement;
+  populateLabelGraphics(label.seed || makeSeed(food.id + label.name + label.date));
+
+  showScreen('screen-label-preview');
 }
 
 function saveFood() {
@@ -2669,10 +3271,25 @@ function renderAggregateSales() {
 }
 
 function goToFood(foodId) {
+  currentFoodId = foodId;
   const food = FOODS.find(f => f.id === foodId);
   document.getElementById('food-detail-name').textContent = food.name;
   document.getElementById('food-detail-icon').textContent = food.icon;
   document.getElementById('food-detail-cat').innerHTML = food.cat;
+
+  // Render tabs dynamically based on Pro status
+  const labelsTab = isProUser
+    ? `<button class="mtab" onclick="switchFoodTab('labels-food')">Labels</button>`
+    : `<button class="mtab locked" onclick="goToPricing()">Labels <span class="lock-badge">⭐ Upgrade</span></button>`;
+  const inventoryTab = isProUser
+    ? `<button class="mtab" onclick="switchFoodTab('inventory')">Inventory</button>`
+    : `<button class="mtab locked" onclick="goToPricing()">Inventory <span class="lock-badge">⭐ Upgrade</span></button>`;
+  document.getElementById('food-detail-tabs').innerHTML = `
+    <button class="mtab active" onclick="switchFoodTab('ingredients')">Ingredients</button>
+    <button class="mtab" onclick="switchFoodTab('sales')">Sales</button>
+    ${labelsTab}
+    ${inventoryTab}
+  `;
 
   // Render ingredients
   document.getElementById('panel-ingredients').innerHTML = `
@@ -2689,60 +3306,34 @@ function goToFood(foodId) {
   const totalUnits   = food.sales.reduce((sum, s) => sum + s.units, 0);
   document.getElementById('panel-sales').innerHTML = `
     <div class="sales-summary">
-      <div class="sales-stat">
-        <div class="sales-stat-label">Total Revenue</div>
-        <div class="sales-stat-value green">$${totalRevenue.toLocaleString('en-US', {minimumFractionDigits: 2})}</div>
-      </div>
-      <div class="sales-stat">
-        <div class="sales-stat-label">Units Sold</div>
-        <div class="sales-stat-value">${totalUnits}</div>
-      </div>
-      <div class="sales-stat">
-        <div class="sales-stat-label">Transactions</div>
-        <div class="sales-stat-value">${food.sales.length}</div>
-      </div>
+      <div class="sales-stat"><div class="sales-stat-label">Total Revenue</div><div class="sales-stat-value green">$${totalRevenue.toLocaleString('en-US', {minimumFractionDigits: 2})}</div></div>
+      <div class="sales-stat"><div class="sales-stat-label">Units Sold</div><div class="sales-stat-value">${totalUnits}</div></div>
+      <div class="sales-stat"><div class="sales-stat-label">Transactions</div><div class="sales-stat-value">${food.sales.length}</div></div>
     </div>
     <table class="sales-table">
-      <thead>
-        <tr>
-          <th>Date</th>
-          <th>Venue</th>
-          <th>Units</th>
-          <th>Unit Price</th>
-          <th>Total</th>
-        </tr>
-      </thead>
+      <thead><tr><th>Date</th><th>Venue</th><th>Units</th><th>Unit Price</th><th>Total</th></tr></thead>
       <tbody>
-        ${food.sales.map(s => `
-          <tr>
-            <td>${s.date}</td>
-            <td>${s.venue}</td>
-            <td>${s.units}</td>
-            <td>$${s.price.toFixed(2)}</td>
-            <td>$${(s.units * s.price).toFixed(2)}</td>
-          </tr>`).join('')}
-        <tr class="total-row">
-          <td colspan="2">Total</td>
-          <td>${totalUnits}</td>
-          <td>—</td>
-          <td>$${totalRevenue.toLocaleString('en-US', {minimumFractionDigits: 2})}</td>
-        </tr>
+        ${food.sales.map(s => `<tr><td>${s.date}</td><td>${s.venue}</td><td>${s.units}</td><td>$${s.price.toFixed(2)}</td><td>$${(s.units * s.price).toFixed(2)}</td></tr>`).join('')}
+        <tr class="total-row"><td colspan="2">Total</td><td>${totalUnits}</td><td>—</td><td>$${totalRevenue.toLocaleString('en-US', {minimumFractionDigits: 2})}</td></tr>
       </tbody>
     </table>`;
 
-  // Reset food tabs
-  document.querySelectorAll('#screen-food .mtab').forEach(t => t.classList.remove('active'));
+  // Render labels panel
+  renderLabelsPanel(food);
+
+  // Reset to ingredients tab
   document.querySelectorAll('#screen-food .tab-panel').forEach(p => p.classList.remove('active'));
-  document.querySelector('#screen-food .mtab:first-child').classList.add('active');
   document.getElementById('panel-ingredients').classList.add('active');
   showScreen('screen-food');
 }
 
 function switchFoodTab(tab) {
-  document.querySelectorAll('#screen-food .mtab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('#food-detail-tabs .mtab').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('#screen-food .tab-panel').forEach(p => p.classList.remove('active'));
-  document.querySelector(`#screen-food .mtab[onclick="switchFoodTab('${tab}')"]`).classList.add('active');
-  document.getElementById('panel-' + tab).classList.add('active');
+  const btn = document.querySelector(`#food-detail-tabs .mtab[onclick="switchFoodTab('${tab}')"]`);
+  if (btn) btn.classList.add('active');
+  const panel = document.getElementById('panel-' + tab);
+  if (panel) panel.classList.add('active');
 }
 
 function startPath(path) {
@@ -2895,7 +3486,7 @@ function renderChecklist() {
     } else if (step.id === 'website' && isProUser) {
       actionHTML = `<button class="action-btn ext" onclick="goToWebsiteBuilder()">Build your website →</button>`;
     } else if (step.id === 'labels' && isProUser) {
-      actionHTML = `<button class="action-btn ext" onclick="goToPricing()">Create labels →</button>`;
+      actionHTML = `<button class="action-btn ext" onclick="showScreen('screen-member'); switchMemberTab('foods')">Go to My Foods →</button>`;
     } else {
       actionHTML = `<button class="action-btn soon" onclick="goToPricing()">${step.btnLabel}</button>`;
     }
