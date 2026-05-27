@@ -673,6 +673,22 @@
     margin-left: 5px; vertical-align: middle;
   }
 
+  .add-food-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-top: 1.25rem;
+    background: none; border: 1.5px dashed var(--border);
+    border-radius: 12px; padding: 12px 20px;
+    font-family: 'DM Sans', sans-serif; font-size: 0.875rem;
+    font-weight: 500; color: var(--text-mid);
+    cursor: pointer; transition: border-color 0.15s, color 0.15s, background 0.15s;
+    width: 100%;
+    justify-content: center;
+  }
+  .add-food-btn:hover {
+    border-color: var(--amber); color: var(--amber);
+    background: var(--amber-pale);
+  }
+
   /* ════════════════════════════
      SCREEN — WEBSITE BUILDER (SPLIT)
   ════════════════════════════ */
@@ -1994,6 +2010,44 @@
 
 <div class="publish-success" id="publish-toast">🎉 Your site is live at cottagefoodwizard.com/your-business</div>
 
+<!-- ════════════════════════════════════
+     SCREEN — ADD FOOD
+════════════════════════════════════ -->
+<div class="screen" id="screen-add-food">
+  <div class="login-wrap" style="max-width:480px;">
+    <div class="back-link" onclick="showScreen('screen-member'); switchMemberTab('foods')">← Back to My Foods</div>
+    <div class="login-card">
+      <h2>Add a food</h2>
+      <p class="login-sub">Tell us what you're making.</p>
+
+      <div class="login-field">
+        <label>Food name</label>
+        <input type="text" id="af-name" placeholder="e.g. Grandma's Apple Butter">
+      </div>
+
+      <div class="login-field">
+        <label>Category</label>
+        <select id="af-category" style="width:100%; background:var(--cream); border:1px solid var(--border); border-radius:8px; padding:10px 14px; font-family:'DM Sans',sans-serif; font-size:0.9rem; color:var(--text); outline:none; appearance:none;">
+          <option value="" disabled selected>Select a category…</option>
+          <option value="acidic" data-icon="🫙">Acidic, Pickled &amp; Home-canned</option>
+          <option value="baked" data-icon="🍞">Baked Foods</option>
+          <option value="beverages" data-icon="🧃">Beverages</option>
+          <option value="candy" data-icon="🍬">Candy &amp; Confections</option>
+          <option value="dried" data-icon="🌾">Dried, Dehydrated &amp; Roasted</option>
+          <option value="freeze" data-icon="❄️">Freeze-Dried Foods</option>
+          <option value="frozen" data-icon="🧊">Frozen Foods</option>
+          <option value="icings" data-icon="🎂">Icings, Fillings &amp; Frostings</option>
+          <option value="jams" data-icon="🍓">Jams, Jellies &amp; Preserves</option>
+          <option value="hemp" data-icon="🌿">Hemp Foods</option>
+        </select>
+      </div>
+
+      <button class="login-btn" onclick="saveFood()">Add food →</button>
+    </div>
+  </div>
+</div><!-- /screen-add-food -->
+
+
 <footer>
   Copyright The Cottage Food Wizard 2026.
 </footer>
@@ -2161,6 +2215,7 @@ let currentUserEmail  = '';
 let userPath          = 'new';
 let builderSource     = 'checklist';
 let previewSource     = 'builder';
+let userAddedFoods    = [];
 let selectedCats      = new Set();
 let checkedSteps      = new Set();
 
@@ -2188,12 +2243,13 @@ function goToScreen(id) {
 }
 
 function doLogout() {
-  isLoggedIn      = false;
-  isProUser       = false;
-  currentUser     = '';
+  isLoggedIn       = false;
+  isProUser        = false;
+  currentUser      = '';
   currentUserName  = '';
   currentUserEmail = '';
-  userPath        = 'new';
+  userPath         = 'new';
+  userAddedFoods   = [];
   selectedCats.clear();
   checkedSteps.clear();
   // Reset nav
@@ -2340,24 +2396,47 @@ function renderMemberHome() {
 
   if (currentUser === 'mary') {
     document.getElementById('member-sub').textContent = 'Here\'s everything in your account.';
-    // Set Mary's website tab
     document.getElementById('wt-slug').textContent = 'mary-gonzalez';
     document.getElementById('wt-name').textContent = 'Mary\'s Home Kitchen';
+
+    const maryCards = [
+      { id:'jam',         icon:'🍓', name:"Mary's Strawberry Jam",       cat:'Jams, Jellies &amp; Preserves' },
+      { id:'raspberries', icon:'🫙', name:"Mary's Preserved Raspberries", cat:'Jams, Jellies &amp; Preserves' },
+      { id:'tomatoes',    icon:'🍅', name:"Mary's Canned Tomatoes",       cat:'Acidic, Pickled &amp; Home-canned' },
+      { id:'pickle',      icon:'🥒', name:"Mary's Pickle",               cat:'Acidic, Pickled &amp; Home-canned' },
+    ];
+    const allCards = [...maryCards, ...userAddedFoods];
     foodGrid.innerHTML = `
       <div class="food-grid">
-        <div class="food-card" onclick="goToFood('jam')"><span class="food-card-icon">🍓</span><div class="food-card-name">Mary's Strawberry Jam</div><div class="food-card-cat">Jams, Jellies &amp; Preserves</div></div>
-        <div class="food-card" onclick="goToFood('raspberries')"><span class="food-card-icon">🫙</span><div class="food-card-name">Mary's Preserved Raspberries</div><div class="food-card-cat">Jams, Jellies &amp; Preserves</div></div>
-        <div class="food-card" onclick="goToFood('tomatoes')"><span class="food-card-icon">🍅</span><div class="food-card-name">Mary's Canned Tomatoes</div><div class="food-card-cat">Acidic, Pickled &amp; Home-canned</div></div>
-        <div class="food-card" onclick="goToFood('pickle')"><span class="food-card-icon">🥒</span><div class="food-card-name">Mary's Pickle</div><div class="food-card-cat">Acidic, Pickled &amp; Home-canned</div></div>
-      </div>`;
+        ${allCards.map(f => f.id
+          ? `<div class="food-card" onclick="goToFood('${f.id}')"><span class="food-card-icon">${f.icon}</span><div class="food-card-name">${f.name}</div><div class="food-card-cat">${f.cat}</div></div>`
+          : `<div class="food-card"><span class="food-card-icon">${f.icon}</span><div class="food-card-name">${f.name}</div><div class="food-card-cat">${f.cat}</div></div>`
+        ).join('')}
+      </div>
+      <button class="add-food-btn" onclick="showScreen('screen-add-food')">+ Add a food</button>`;
     salesAgg.innerHTML = '';
   } else {
     document.getElementById('member-sub').textContent = 'Welcome! You\'re all set up.';
-    foodGrid.innerHTML = `
-      <div class="empty-state">
-        <div class="empty-state-icon">🥫</div>
-        <p>No foods added yet.<br>Add your first product to get started.</p>
-      </div>`;
+
+    if (userAddedFoods.length === 0) {
+      foodGrid.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-state-icon">🥫</div>
+          <p>No foods added yet.</p>
+        </div>
+        <button class="add-food-btn" onclick="showScreen('screen-add-food')">+ Add your first food</button>`;
+    } else {
+      foodGrid.innerHTML = `
+        <div class="food-grid">
+          ${userAddedFoods.map(f => `
+            <div class="food-card">
+              <span class="food-card-icon">${f.icon}</span>
+              <div class="food-card-name">${f.name}</div>
+              <div class="food-card-cat">${f.cat}</div>
+            </div>`).join('')}
+        </div>
+        <button class="add-food-btn" onclick="showScreen('screen-add-food')">+ Add a food</button>`;
+    }
     salesAgg.innerHTML = `
       <div class="empty-state">
         <div class="empty-state-icon">📊</div>
@@ -2376,6 +2455,29 @@ function publishSite() {
   renderMemberHome();
   showScreen('screen-member');
   switchMemberTab('website-tab');
+}
+
+function saveFood() {
+  const name = document.getElementById('af-name').value.trim();
+  const select = document.getElementById('af-category');
+  const cat = select.options[select.selectedIndex]?.text || '';
+  const icon = select.options[select.selectedIndex]?.dataset.icon || '🥫';
+
+  if (!name || !cat || select.value === '') {
+    alert('Please fill in both fields.');
+    return;
+  }
+
+  userAddedFoods.push({ name, cat, icon });
+
+  // Clear form
+  document.getElementById('af-name').value = '';
+  document.getElementById('af-category').selectedIndex = 0;
+
+  // Go back to My Foods
+  renderMemberHome();
+  showScreen('screen-member');
+  switchMemberTab('foods');
 }
 
 function selectColor(el) {
