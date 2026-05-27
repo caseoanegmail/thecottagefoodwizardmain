@@ -1078,6 +1078,28 @@
     padding: 1.25rem 3rem; text-align: center; font-size: 0.78rem;
   }
 
+  /* SSO */
+  .sso-buttons { display: flex; flex-direction: column; gap: 10px; margin-bottom: 1.25rem; }
+  .sso-btn {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    width: 100%; padding: 11px 16px; border-radius: 10px;
+    font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 500;
+    cursor: pointer; border: none; transition: filter 0.15s;
+  }
+  .sso-btn:hover { filter: brightness(0.95); }
+  .sso-btn.google { background: white; color: #3c4043; border: 1.5px solid #dadce0; }
+  .sso-btn.facebook { background: #1877F2; color: white; }
+  .sso-btn.apple { background: #000; color: white; }
+
+  .sso-divider {
+    display: flex; align-items: center; gap: 12px;
+    margin: 1rem 0; color: var(--text-light); font-size: 0.78rem;
+  }
+  .sso-divider::before,
+  .sso-divider::after {
+    content: ''; flex: 1; height: 1px; background: var(--border);
+  }
+
   /* ════════════════════════════
      SCREEN — CHECKOUT
   ════════════════════════════ */
@@ -1137,6 +1159,7 @@
     <div class="nav-user" id="nav-user" onclick="handleNavUserClick()">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
       <span id="nav-user-label">Log in</span>
+      <span id="nav-pro-badge" style="display:none; background:var(--amber); color:white; font-size:0.6rem; font-weight:700; letter-spacing:0.06em; padding:2px 6px; border-radius:6px; margin-left:2px;">PRO</span>
       <svg id="nav-chevron" style="display:none; transition: transform 0.2s;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
     </div>
     <div class="nav-dropdown" id="nav-dropdown">
@@ -1212,8 +1235,7 @@
         <p>Already registered and selling? We'll help you grow — get your website and labels ready to reach more customers.</p>
         <div class="option-arrow">Continue growing →</div>
       </div>
-    </div>
-  </div>
+    </div>  </div>
 
 </div><!-- /screen-home --><!-- ════════════════════════════════════
      SCREEN 2 — CATEGORY SELECTION
@@ -1339,21 +1361,76 @@
 
 
 <!-- ════════════════════════════════════
+     SCREEN — CREATE ACCOUNT
+════════════════════════════════════ -->
+<div class="screen" id="screen-create-account">
+  <div class="login-wrap" style="max-width: 440px;">
+    <div class="back-link" onclick="goHome()">← Back</div>
+    <div class="login-card">
+      <h2>Create your account</h2>
+      <p class="login-sub" id="create-account-sub">Let's get you set up.</p>
+
+      <!-- SSO -->
+      <div class="sso-buttons">
+        <button class="sso-btn google" onclick="doCreateAccount()">
+          <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+          Continue with Google
+        </button>
+        <button class="sso-btn facebook" onclick="doCreateAccount()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          Continue with Facebook
+        </button>
+        <button class="sso-btn apple" onclick="doCreateAccount()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          Continue with Apple
+        </button>
+      </div>
+
+      <div class="sso-divider">
+        <span>or continue with email</span>
+      </div>
+
+      <!-- Email form -->
+      <div class="login-field">
+        <label>Your name</label>
+        <input type="text" id="ca-name" placeholder="Maria Garcia">
+      </div>
+      <div class="login-field">
+        <label>Email address</label>
+        <input type="email" id="ca-email" placeholder="maria@example.com">
+      </div>
+      <div class="login-field">
+        <label>Password</label>
+        <input type="password" id="ca-password" placeholder="Choose a password">
+      </div>
+
+      <button class="login-btn" onclick="doCreateAccount()">Create account →</button>
+
+      <p style="font-size:0.78rem; color:var(--text-light); text-align:center; margin-top:1rem;">
+        Already have an account? <span style="color:var(--amber); cursor:pointer;" onclick="showScreen('screen-login')">Log in</span>
+      </p>
+    </div>
+  </div>
+</div><!-- /screen-create-account -->
+
+
+<!-- ════════════════════════════════════
      SCREEN — LOGIN
 ════════════════════════════════════ -->
 <div class="screen" id="screen-login">
   <div class="login-wrap">
+    <div class="back-link" onclick="goHome()">← Back</div>
     <div class="login-card">
       <h2>Welcome back</h2>
       <p class="login-sub">Log in to your Cottage Food Wizard account.</p>
 
       <div class="login-field">
         <label>Email address</label>
-        <input type="email" value="mary.gonzalez@email.com">
+        <input type="email" id="login-email" placeholder="your@email.com">
       </div>
       <div class="login-field">
         <label>Password</label>
-        <input type="password" value="password123">
+        <input type="password" id="login-password" placeholder="Your password">
       </div>
 
       <button class="login-btn" onclick="doLogin()">Log in →</button>
@@ -1368,8 +1445,8 @@
 <div class="screen" id="screen-member">
   <div class="member-wrap">
 
-    <h2 class="member-greeting">Good morning, <em>Mary.</em></h2>
-    <p class="member-sub">Here's everything in your account.</p>
+    <h2 class="member-greeting" id="member-greeting">Good morning, <em>Mary.</em></h2>
+    <p class="member-sub" id="member-sub">Here's everything in your account.</p>
 
     <div class="member-tabs">
       <button class="mtab active" onclick="switchMemberTab('foods')">My Foods</button>
@@ -1411,9 +1488,9 @@
         <div class="website-tab-info">
           <div class="website-tab-url">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            cottagefoodwizard.com/mary-gonzalez
+            cottagefoodwizard.com/<span id="wt-slug">mary-gonzalez</span>
           </div>
-          <h3 class="website-tab-name">Mary's Home Kitchen</h3>
+          <h3 class="website-tab-name" id="wt-name">Mary's Home Kitchen</h3>
           <p class="website-tab-desc">Your website is live and ready to share.</p>
         </div>
         <div class="website-tab-actions">
@@ -1882,7 +1959,7 @@
 
       <div class="login-field">
         <label>Name on card</label>
-        <input type="text" value="Mary Gonzalez">
+        <input type="text" id="checkout-name" placeholder="Your name">
       </div>
       <div class="login-field">
         <label>Card number</label>
@@ -1903,7 +1980,7 @@
       </div>
       <div class="login-field">
         <label>Email for receipt</label>
-        <input type="email" value="mary.gonzalez@email.com">
+        <input type="email" id="checkout-email" placeholder="your@email.com">
       </div>
 
       <button class="login-btn" onclick="completePayment()">Complete payment →</button>
@@ -2079,6 +2156,9 @@ const PRE_CHECKED = new Set(['training', 'register']);
 /* ─── STATE ─── */
 let isLoggedIn        = false;
 let isProUser         = false;
+let currentUser       = '';
+let currentUserName   = '';
+let currentUserEmail  = '';
 let userPath          = 'new';
 let selectedCats      = new Set();
 let checkedSteps      = new Set();
@@ -2107,10 +2187,25 @@ function goToScreen(id) {
 }
 
 function doLogout() {
-  isLoggedIn = false;
+  isLoggedIn      = false;
+  isProUser       = false;
+  currentUser     = '';
+  currentUserName  = '';
+  currentUserEmail = '';
+  userPath        = 'new';
+  selectedCats.clear();
+  checkedSteps.clear();
+  // Reset nav
   document.getElementById('nav-user-label').textContent = 'Log in';
-  document.getElementById('nav-chevron').style.display = 'none';
+  document.getElementById('nav-pro-badge').style.display = 'none';
   document.getElementById('nav-dropdown').classList.remove('open');
+  // Reset create account form
+  const name = document.getElementById('ca-name');
+  const email = document.getElementById('ca-email');
+  const pass = document.getElementById('ca-password');
+  if (name) name.value = '';
+  if (email) email.value = '';
+  if (pass) pass.value = '';
   showScreen('screen-home');
 }
 
@@ -2125,22 +2220,20 @@ document.addEventListener('click', function(e) {
 });
 
 function goToCheckout() {
-  // Sync the plan label from whatever tab is active
   const isAnnual = document.querySelector('.ptab.active') &&
     document.querySelector('.ptab.active').textContent.trim() === 'Annual';
   document.getElementById('checkout-plan-label').textContent =
     isAnnual ? '$200 / year' : '$20 / month';
+
+  // Populate fields from current user
+  document.getElementById('checkout-name').value  = currentUserName  || '';
+  document.getElementById('checkout-email').value = currentUserEmail || '';
   showScreen('screen-checkout');
 }
 
 function completePayment() {
   isProUser = true;
-  // If logged in, update nav; if not, set up as Mary
-  if (!isLoggedIn) {
-    isLoggedIn = true;
-    document.getElementById('nav-user-label').textContent = 'Mary Gonzalez';
-    document.getElementById('nav-chevron').style.display = 'inline-block';
-  }
+  document.getElementById('nav-pro-badge').style.display = 'inline-block';
   showScreen('screen-website-builder');
 }
 
@@ -2228,13 +2321,52 @@ function handlePhoto(input, which) {
   reader.readAsDataURL(input.files[0]);
 }
 
+function renderMemberHome() {
+  const firstName = currentUserName.split(' ')[0];
+  const hour = new Date().getHours();
+  const greeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
+
+  document.getElementById('member-greeting').innerHTML = `${greeting}, <em>${firstName}.</em>`;
+
+  const foodGrid = document.getElementById('panel-foods');
+  const salesAgg = document.getElementById('panel-sales-agg');
+
+  if (currentUser === 'mary') {
+    document.getElementById('member-sub').textContent = 'Here\'s everything in your account.';
+    foodGrid.innerHTML = `
+      <div class="food-grid">
+        <div class="food-card" onclick="goToFood('jam')"><span class="food-card-icon">🍓</span><div class="food-card-name">Mary's Strawberry Jam</div><div class="food-card-cat">Jams, Jellies &amp; Preserves</div></div>
+        <div class="food-card" onclick="goToFood('raspberries')"><span class="food-card-icon">🫙</span><div class="food-card-name">Mary's Preserved Raspberries</div><div class="food-card-cat">Jams, Jellies &amp; Preserves</div></div>
+        <div class="food-card" onclick="goToFood('tomatoes')"><span class="food-card-icon">🍅</span><div class="food-card-name">Mary's Canned Tomatoes</div><div class="food-card-cat">Acidic, Pickled &amp; Home-canned</div></div>
+        <div class="food-card" onclick="goToFood('pickle')"><span class="food-card-icon">🥒</span><div class="food-card-name">Mary's Pickle</div><div class="food-card-cat">Acidic, Pickled &amp; Home-canned</div></div>
+      </div>`;
+    salesAgg.innerHTML = '';
+  } else {
+    document.getElementById('member-sub').textContent = 'Welcome! You\'re all set up.';
+    foodGrid.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-state-icon">🥫</div>
+        <p>No foods added yet.<br>Add your first product to get started.</p>
+      </div>`;
+    salesAgg.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-state-icon">📊</div>
+        <p>No sales recorded yet.<br>They'll appear here once you start selling.</p>
+      </div>`;
+  }
+
+  // Reset to My Foods tab
+  switchMemberTab('foods');
+}
+
 function publishSite() {
-  const toast = document.getElementById('publish-toast');
-  const name = document.getElementById('b-name').value.trim();
-  const slug = name ? name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'') : 'your-business';
-  toast.textContent = `🎉 Your site is live at cottagefoodwizard.com/${slug}`;
-  toast.classList.add('visible');
-  setTimeout(() => toast.classList.remove('visible'), 4000);
+  const name = document.getElementById('b-name').value.trim() || 'My Business';
+  const slug = name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+  document.getElementById('wt-slug').textContent = slug;
+  document.getElementById('wt-name').textContent = name;
+  renderMemberHome();
+  showScreen('screen-member');
+  switchMemberTab('website-tab');
 }
 
 function selectColor(el) {
@@ -2261,10 +2393,15 @@ function goToLogin() {
 }
 
 function doLogin() {
-  isLoggedIn = true;
-  isProUser  = true;
+  isLoggedIn       = true;
+  isProUser        = true;
+  currentUser      = 'mary';
+  currentUserName  = 'Mary Gonzalez';
+  currentUserEmail = 'mary.gonzalez@email.com';
   document.getElementById('nav-user-label').textContent = 'Mary Gonzalez';
   document.getElementById('nav-chevron').style.display = 'inline-block';
+  document.getElementById('nav-pro-badge').style.display = 'inline-block';
+  renderMemberHome();
   showScreen('screen-member');
 }
 
@@ -2408,6 +2545,24 @@ function switchFoodTab(tab) {
 function startPath(path) {
   userPath = path;
   selectedCats.clear();
+  if (path === 'existing') {
+    document.getElementById('login-email').value = 'mary.gonzalez@email.com';
+    document.getElementById('login-password').value = 'password123';
+    showScreen('screen-login');
+  } else {
+    document.getElementById('create-account-sub').textContent = 'Create an account to get started.';
+    showScreen('screen-create-account');
+  }
+}
+
+function doCreateAccount() {
+  isLoggedIn      = true;
+  isProUser       = false;
+  currentUser     = 'new';
+  currentUserName = document.getElementById('ca-name').value.trim() || 'Pang Dao';
+  currentUserEmail = document.getElementById('ca-email').value.trim() || '';
+  document.getElementById('nav-user-label').textContent = currentUserName;
+  document.getElementById('nav-chevron').style.display = 'inline-block';
   renderCategories();
   showScreen('screen-categories');
 }
