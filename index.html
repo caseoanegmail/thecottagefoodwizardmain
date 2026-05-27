@@ -1488,14 +1488,14 @@
         <div class="website-tab-info">
           <div class="website-tab-url">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            cottagefoodwizard.com/<span id="wt-slug">mary-gonzalez</span>
+            cottagefoodwizard.com/<span id="wt-slug">your-business</span>
           </div>
-          <h3 class="website-tab-name" id="wt-name">Mary's Home Kitchen</h3>
+          <h3 class="website-tab-name" id="wt-name">Your Business</h3>
           <p class="website-tab-desc">Your website is live and ready to share.</p>
         </div>
         <div class="website-tab-actions">
-          <button class="action-btn ext" onclick="showScreen('screen-website-preview')">View my site →</button>
-          <button class="action-btn ext" onclick="showScreen('screen-website-builder')" style="margin-top:8px">Edit →</button>
+          <button class="action-btn ext" onclick="viewMySite('member')">View my site →</button>
+          <button class="action-btn ext" onclick="goToBuilder('member')" style="margin-top:8px">Edit →</button>
         </div>
       </div>
     </div>
@@ -1578,11 +1578,11 @@
       <div class="profile-grid">
         <div class="profile-field">
           <div class="profile-label">Full name</div>
-          <div class="profile-value">Mary Gonzalez</div>
+          <div class="profile-value" id="profile-name">Mary Gonzalez</div>
         </div>
         <div class="profile-field">
           <div class="profile-label">Email address</div>
-          <div class="profile-value">mary.gonzalez@email.com</div>
+          <div class="profile-value" id="profile-email">mary.gonzalez@email.com</div>
         </div>
         <div class="profile-field">
           <div class="profile-label">Phone</div>
@@ -1681,7 +1681,7 @@
 
     <!-- LEFT: FORM -->
     <div class="builder-left">
-      <div class="back-link" onclick="goToChecklist()">← Back</div>
+      <div class="back-link" onclick="goBackFromBuilder()">← Back</div>
       <h2 class="screen-title" style="font-size:1.4rem;">Build your website</h2>
       <p class="screen-sub" style="margin-bottom:1.5rem;">Fill in your details — the preview updates live on the right.</p>
 
@@ -1863,19 +1863,19 @@
   <div class="preview-outer">
 
     <div class="preview-topbar">
-      <div class="back-link" style="margin:0" onclick="showScreen('screen-website-builder')">← Back to editor</div>
+      <div class="back-link" style="margin:0" onclick="goBackFromPreview()">← Back</div>
       <div class="preview-url-bar">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#2E5E3E" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        cottagefoodwizard.com/mary-gonzalez
+        cottagefoodwizard.com/<span id="preview-slug">mary-gonzalez</span>
       </div>
       <div style="width:160px"></div>
     </div>
 
-    <!-- Mary's actual website -->
-    <div class="mary-site">
+    <!-- Website preview — populated dynamically by viewMySite() -->
+    <div class="mary-site" id="static-preview-site">
 
       <header class="mary-header">
-        <div class="mary-logo">🍓 Mary's Home Kitchen</div>
+        <div class="mary-logo" id="sp-logo">🍓 Mary's Home Kitchen</div>
         <nav class="mary-nav">
           <a href="#">Home</a>
           <a href="#">Products</a>
@@ -1883,22 +1883,21 @@
         </nav>
       </header>
 
-      <section class="mary-hero" style="background-image: linear-gradient(rgba(20,10,5,0.55), rgba(20,10,5,0.55)), url('https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?w=1200&q=80');">
-        <h1>Homemade with love,<br>sold with pride.</h1>
-        <p>Small-batch jams, jellies, and preserves made in St. Paul, Minnesota.</p>
-        <a href="#contact" class="mary-cta">Get in touch →</a>
+      <section class="mary-hero" id="sp-hero" style="background-image: linear-gradient(rgba(20,10,5,0.55), rgba(20,10,5,0.55)), url('https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?w=1200&q=80');">
+        <h1 id="sp-tagline">Homemade with love,<br>sold with pride.</h1>
+        <p id="sp-sell">Small-batch jams, jellies, and preserves made in St. Paul, Minnesota.</p>
+        <a href="#sp-contact" class="mary-cta">Get in touch →</a>
       </section>
 
       <section class="mary-section">
         <div class="mary-section-inner">
           <div class="mary-section-text">
             <div class="mary-eyebrow">What I make</div>
-            <h2>Good food, made from scratch.</h2>
-            <p>Jams, jellies, preserved vegetables, and pickles made from locally sourced Minnesota ingredients. Everything is made in small batches in my St. Paul kitchen.</p>
-            <p>All products are registered with the Minnesota Department of Agriculture and fully compliant with Minnesota cottage food law.</p>
+            <h2 id="sp-name">Good food, made from scratch.</h2>
+            <p id="sp-desc">Jams, jellies, preserved vegetables, and pickles made from locally sourced Minnesota ingredients. Everything is made in small batches in my St. Paul kitchen.</p>
           </div>
           <div class="mary-section-photo">
-            <img src="https://images.unsplash.com/photo-1488459716781-31db52582fe9?w=600&q=80" alt="Farmers market">
+            <img id="sp-photo2" src="https://images.unsplash.com/photo-1488459716781-31db52582fe9?w=600&q=80" alt="Market photo" style="width:100%;border-radius:12px;object-fit:cover;height:280px;">
           </div>
         </div>
       </section>
@@ -1907,23 +1906,23 @@
         <div class="mary-venues-inner">
           <div class="mary-eyebrow" style="text-align:center; margin-bottom:0.5rem;">Find me at</div>
           <h2 style="text-align:center; margin-bottom:2rem;">Where to buy</h2>
-          <div class="mary-venue-cards">
+          <div class="mary-venue-cards" id="sp-venues">
             <div class="mary-venue-card">🌿 Farmers Markets</div>
             <div class="mary-venue-card">🎪 Community Events</div>
           </div>
         </div>
       </section>
 
-      <section class="mary-contact" id="contact">
+      <section class="mary-contact" id="sp-contact">
         <div class="mary-eyebrow">Get in touch</div>
         <h2>I'd love to hear from you.</h2>
-        <div class="mary-contact-details">
+        <div class="mary-contact-details" id="sp-contact-details">
           <span>📧 mary.gonzalez@email.com</span>
           <span>📞 (612) 555-0182</span>
         </div>
       </section>
 
-      <footer class="mary-footer">
+      <footer class="mary-footer" id="sp-footer">
         © 2026 Mary's Home Kitchen · St. Paul, MN · Registered MN Cottage Food Producer
       </footer>
 
@@ -2160,6 +2159,8 @@ let currentUser       = '';
 let currentUserName   = '';
 let currentUserEmail  = '';
 let userPath          = 'new';
+let builderSource     = 'checklist';
+let previewSource     = 'builder';
 let selectedCats      = new Set();
 let checkedSteps      = new Set();
 
@@ -2328,11 +2329,20 @@ function renderMemberHome() {
 
   document.getElementById('member-greeting').innerHTML = `${greeting}, <em>${firstName}.</em>`;
 
-  const foodGrid = document.getElementById('panel-foods');
-  const salesAgg = document.getElementById('panel-sales-agg');
+  // Update profile fields
+  if (document.getElementById('profile-name')) {
+    document.getElementById('profile-name').textContent = currentUserName || '—';
+    document.getElementById('profile-email').textContent = currentUserEmail || '—';
+  }
+
+  const foodGrid  = document.getElementById('panel-foods');
+  const salesAgg  = document.getElementById('panel-sales-agg');
 
   if (currentUser === 'mary') {
     document.getElementById('member-sub').textContent = 'Here\'s everything in your account.';
+    // Set Mary's website tab
+    document.getElementById('wt-slug').textContent = 'mary-gonzalez';
+    document.getElementById('wt-name').textContent = 'Mary\'s Home Kitchen';
     foodGrid.innerHTML = `
       <div class="food-grid">
         <div class="food-card" onclick="goToFood('jam')"><span class="food-card-icon">🍓</span><div class="food-card-name">Mary's Strawberry Jam</div><div class="food-card-cat">Jams, Jellies &amp; Preserves</div></div>
@@ -2355,7 +2365,6 @@ function renderMemberHome() {
       </div>`;
   }
 
-  // Reset to My Foods tab
   switchMemberTab('foods');
 }
 
@@ -2379,11 +2388,103 @@ function selectColor(el) {
   });
 }
 
-function goToWebsiteBuilder() {
+function goToBuilder(source) {
+  builderSource = source || 'checklist';
   showScreen('screen-website-builder');
 }
 
+function goBackFromBuilder() {
+  if (builderSource === 'member') {
+    showScreen('screen-member');
+    switchMemberTab('website-tab');
+  } else {
+    goToChecklist();
+  }
+}
+
+function viewMySite(source) {
+  previewSource = source || 'builder';
+
+  if (currentUser === 'mary') {
+    // Mary: show her hardcoded site (already in static preview)
+    document.getElementById('preview-slug').textContent = 'mary-gonzalez';
+    document.getElementById('sp-logo').textContent = '🍓 Mary\'s Home Kitchen';
+    document.getElementById('sp-tagline').innerHTML = 'Homemade with love,<br>sold with pride.';
+    document.getElementById('sp-sell').textContent = 'Small-batch jams, jellies, and preserves made in St. Paul, Minnesota.';
+    document.getElementById('sp-name').textContent = 'Good food, made from scratch.';
+    document.getElementById('sp-desc').textContent = 'Jams, jellies, preserved vegetables, and pickles made from locally sourced Minnesota ingredients. Everything is made in small batches in my St. Paul kitchen.';
+    document.getElementById('sp-venues').innerHTML = '<div class="mary-venue-card">🌿 Farmers Markets</div><div class="mary-venue-card">🎪 Community Events</div>';
+    document.getElementById('sp-contact-details').innerHTML = '<span>📧 mary.gonzalez@email.com</span><span>📞 (612) 555-0182</span>';
+    document.getElementById('sp-footer').textContent = '© 2026 Mary\'s Home Kitchen · St. Paul, MN · Registered MN Cottage Food Producer';
+    document.getElementById('sp-hero').style.backgroundImage = 'linear-gradient(rgba(20,10,5,0.55), rgba(20,10,5,0.55)), url(\'https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?w=1200&q=80\')';
+  } else {
+    // New user: copy content from live builder preview
+    const name    = document.getElementById('b-name').value.trim() || 'My Business';
+    const tagline = document.getElementById('b-tagline').value.trim() || '';
+    const sell    = document.getElementById('b-sell').value.trim() || '';
+    const email   = document.getElementById('b-email').value.trim() || '';
+    const phone   = document.getElementById('b-phone').value.trim() || '';
+    const slug    = name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+
+    document.getElementById('preview-slug').textContent = slug;
+    document.getElementById('sp-logo').textContent = `🍓 ${name}`;
+    document.getElementById('sp-tagline').textContent = tagline || name;
+    document.getElementById('sp-sell').textContent = sell;
+    document.getElementById('sp-name').textContent = `Good food from ${name}.`;
+    document.getElementById('sp-desc').textContent = sell;
+    document.getElementById('sp-footer').textContent = `© 2026 ${name} · Registered MN Cottage Food Producer`;
+
+    // Venues
+    const venues = [];
+    if (document.getElementById('v-market').checked)  venues.push('🌿 Farmers Markets');
+    if (document.getElementById('v-home').checked)    venues.push('🏡 From Home');
+    if (document.getElementById('v-events').checked)  venues.push('🎪 Community Events');
+    if (document.getElementById('v-church').checked)  venues.push('⛪ Church');
+    document.getElementById('sp-venues').innerHTML = venues.length
+      ? venues.map(v => `<div class="mary-venue-card">${v}</div>`).join('')
+      : '<div class="mary-venue-card">Coming soon</div>';
+
+    // Contact
+    const contactItems = [];
+    if (email) contactItems.push(`📧 ${email}`);
+    if (phone) contactItems.push(`📞 ${phone}`);
+    document.getElementById('sp-contact-details').innerHTML =
+      contactItems.map(c => `<span>${c}</span>`).join('') || '';
+
+    // Copy brand color from live preview
+    const liveSite = document.getElementById('live-preview-site');
+    const staticSite = document.getElementById('static-preview-site');
+    if (liveSite && staticSite) {
+      staticSite.style.setProperty('--mary-brand', liveSite.style.getPropertyValue('--mary-brand') || '#2d5a27');
+      staticSite.style.setProperty('--mary-brand-pale', liveSite.style.getPropertyValue('--mary-brand-pale') || '#f0f7ee');
+      staticSite.style.setProperty('--mary-brand-border', liveSite.style.getPropertyValue('--mary-brand-border') || '#c8e0c4');
+    }
+
+    // Copy photo if uploaded
+    const heroStyle = document.getElementById('prev-hero').style.backgroundImage;
+    if (heroStyle && !heroStyle.includes('unsplash')) {
+      document.getElementById('sp-hero').style.backgroundImage = heroStyle;
+    }
+  }
+
+  showScreen('screen-website-preview');
+}
+
+function goBackFromPreview() {
+  if (previewSource === 'member') {
+    showScreen('screen-member');
+    switchMemberTab('website-tab');
+  } else {
+    showScreen('screen-website-builder');
+  }
+}
+
+function goToWebsiteBuilder() {
+  goToBuilder('checklist');
+}
+
 function goHome() {
+  if (isLoggedIn) renderMemberHome();
   isLoggedIn ? showScreen('screen-member') : showScreen('screen-home');
 }
 
@@ -2568,6 +2669,7 @@ function doCreateAccount() {
 }
 
 function goToChecklist() {
+  renderChecklist();
   showScreen('screen-checklist');
 }
 
